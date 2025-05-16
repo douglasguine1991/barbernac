@@ -39,7 +39,7 @@
 *::before,
 *::after {
   box-sizing: border-box;
-}
+  background: black;
 
 html {
   font-family: sans-serif;
@@ -87,6 +87,7 @@ h1, h2, h3, h4, h5, h6 {
 p {
   margin-top: 0;
   margin-bottom: 1rem;
+  color: white;
 }
 
 abbr[title],
@@ -4210,6 +4211,7 @@ input[type="button"].btn-block {
 .navbar-expand .navbar-nav .nav-link {
   padding-right: 0.5rem;
   padding-left: 0.5rem;
+  background: ghostwhite;
 }
 
 .navbar-expand > .container,

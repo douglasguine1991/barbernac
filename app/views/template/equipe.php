@@ -30,7 +30,7 @@
                                     }
 
                                     ?>
-                                    <img src="<?php echo $img; ?>" alt="Foto funcionario" class="rounded-circle" style="width: 50px; height: 50px;">
+                                    <img src="<?php echo $img; ?>" alt="Foto funcionario" class="" style="">
                                 </div>
                                 <div class="product_blog_cont">
                                     <h3><?php echo htmlspecialchars($funcionario['nome_funcionario'], ENT_QUOTES, 'UTF-8'); ?></h3>

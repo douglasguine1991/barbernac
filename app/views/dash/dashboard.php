@@ -342,7 +342,7 @@
                     <!-- Seção de Informações da Empresa -->
                     <div class="col-md-4">
                         <h5>BarberNac</h5>
-                        <p>Oferecemos serviços automotivos de excelência para garantir a segurança e satisfação do seu veículo.</p>
+                        <p>"Oferecemos serviços de barbearia com excelência para garantir o seu estilo, bem-estar e satisfação."</p>
                     </div>
 
                     <!-- Seção de Links Úteis -->

@@ -2,28 +2,7 @@
 <html lang="pt-br">
 
 <head>
-    <!-- basic -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!-- mobile metas -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- site metas -->
-    <title>Serviços - Barbearia Royal</title>
-    <meta name="keywords" content="serviços barbearia, corte de cabelo, design de barba, tratamentos masculinos">
-    <meta name="description" content="Conheça nossos serviços premium de barbearia. Cortes modernos, tratamentos de barba e cuidados especiais para homens.">
-    <meta name="author" content="Barbearia Royal">
-
-    <!-- CSS -->
-    <link rel="stylesheet" href="<?php echo BASE_URL . 'assets/css/bootstrap.min.css'; ?>">
-    <!-- owl css -->
-    <link rel="stylesheet" href="<?php echo BASE_URL . 'assets/css/owl.carousel.min.css'; ?>">
-    <!-- style css -->
-    <link rel="stylesheet" href="<?php echo BASE_URL . 'assets/css/style.css'; ?>">
-    <!-- responsive-->
-    <link rel="stylesheet" href="<?php echo BASE_URL . 'assets/css/responsive.css'; ?>">
-    <!-- awesome fontfamily -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-</head>
+     <?php require_once('template/head.php'); ?></head>
 
 <body class="main-layout">
     <div class="wrapper">
@@ -181,16 +160,16 @@
         }
 
         .btn-primary {
-            background-color: #ffc107;
-            border-color: #ffc107;
+            background-color:rgb(10, 190, 235);
+            border-color:rgb(7, 198, 231);
             color: #333;
             padding: 12px 30px;
             font-weight: bold;
         }
 
         .btn-primary:hover {
-            background-color: #e0a800;
-            border-color: #e0a800;
+            background-color:rgb(7, 204, 230);
+            border-color:rgb(10, 184, 228);
         }
     </style>
 </body>

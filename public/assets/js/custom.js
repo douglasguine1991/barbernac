@@ -3,6 +3,32 @@
 ---------------------------------------------------------------------*/
 
 
+const scrollBtn = document.getElementById("scrollToTopBtn");
+
+function atualizarBotaoProgresso() {
+  const scrollTotal = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+  const scrollAtual = document.documentElement.scrollTop;
+  const porcentagem = Math.round((scrollAtual / scrollTotal) * 100);
+
+  scrollBtn.style.background = `conic-gradient(#252525 ${porcentagem}%, #e0e0e0 ${porcentagem}%)`;
+  scrollBtn.style.display = scrollAtual > 100 ? "flex" : "none";
+}
+
+window.voltarAoTopo = () => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+};
+
+window.addEventListener("scroll", atualizarBotaoProgresso);
+
+// Simulação de carregamento
+  window.addEventListener("load", () => {
+    setTimeout(() => {
+      document.getElementById("preloader").style.display = "none";
+      document.getElementById("conteudo").style.display = "block";
+    }, 1000); // Tempo para o preloader ser visível
+  });
+
+
 $(function () {
 
 	"use strict";
@@ -10,10 +36,7 @@ $(function () {
 	/* Preloader
 	-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- */
 
-	setTimeout(function () {
-		$('.loader_bg').fadeToggle();
-	}, 1500);
-
+  
 	/* JQuery Menu
 	-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- */
 

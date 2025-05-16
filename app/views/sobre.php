@@ -3,29 +3,7 @@
 
 <head>
     <!-- basic -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!-- mobile metas -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
-    <!-- site metas -->
-    <title>BarberNac</title>
-    <meta name="keywords" content="barbearia, sobre, história, equipe, valores">
-    <meta name="description" content="Conheça a história da Barbearia Corte & Estilo, nossa equipe e nossos valores de excelência em serviços masculinos.">
-    <meta name="author" content="Corte & Estilo">
-    <!-- bootstrap css -->
-    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/bootstrap.min.css">
-    <!-- owl css -->
-    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/owl.carousel.min.css">
-    <!-- style css -->
-    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/style.css">
-    <!-- responsive-->
-    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/responsive.css">
-    <!-- awesome fontfamily -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+    <?php require_once('template/head.php'); ?>
 </head>
 
 <body class="main-layout">
@@ -49,34 +27,39 @@
             </div>
         </div>
 
-        <!-- about -->
-        <div id="about" class="about">
+        <section id="about" class="about-section py-5">
             <div class="container">
-                <div class="row">
-                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
-                        <div class="about_box">
-                            <span>Bem-vindo à Barbearia Corte & Estilo</span>
-                            <h2>Sobre<strong class="white"> Nós</strong></h2>
+                <div class="row align-items-center gy-5">
+                    <!-- Texto -->
+                    <div class="col-lg-6">
+                        <div class="about-content">
+                            <span class="section-subtitle">Bem-vindo à Barbearia Corte & Estilo</span>
+                            <h2 class="section-title">Sobre <strong class="highlight">Nós</strong></h2>
                             <p>Fundada em 2015 pelo barbeiro Carlos Mendes, a Barbearia Corte & Estilo nasceu da paixão por transformar cuidados pessoais em uma experiência premium para homens. Começamos como uma pequena barbearia de bairro e hoje somos referência em São Paulo, com uma equipe de 8 profissionais especializados.</p>
 
-                            <h3>Nossa Filosofia</h3>
-                            <p>Acreditamos que um bom corte de cabelo e barba vai além da estética - é sobre confiança, autoestima e identidade. Por isso, dedicamos tempo para entender as necessidades de cada cliente, oferecendo consultoria de estilo personalizada.</p>
+                            <h3 class="section-heading">Nossa Filosofia</h3>
+                            <p>Acreditamos que um bom corte de cabelo e barba vai além da estética — é sobre confiança, autoestima e identidade. Por isso, dedicamos tempo para entender as necessidades de cada cliente, oferecendo consultoria de estilo personalizada.</p>
 
-                            <h3>Diferenciais</h3>
-                            <ul>
+                            <h3 class="section-heading">Diferenciais</h3>
+                            <ul class="features-list">
                                 <li>Produtos de alta qualidade importados</li>
                                 <li>Equipe com mais de 50 anos de experiência combinada</li>
                                 <li>Ambiente exclusivo e aconchegante</li>
                                 <li>Técnicas tradicionais combinadas com as últimas tendências</li>
                             </ul>
-                            <a href="barbers.html">Conheça nossa equipe</a>
+
+                            <a href="barbers.html" class="btn btn-outline-light mt-3">Conheça nossa equipe</a>
                         </div>
                     </div>
-                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
-                        <div class="about_img">
-                            <figure><img src="<?= BASE_URL ?>assets/img/about_img.png" alt="Interior da Barbearia Corte & Estilo" /></figure>
-                            <div class="about_extra">
-                                <h3>Nossos Valores</h3>
+
+                    <!-- Vídeo e Valores -->
+                    <div class="col-lg-6">
+                        <div class="about-media position-relative">
+                            <figure class="about-image rounded shadow-sm overflow-hidden">
+                                <video src="assets/img/sobre.mp4" autoplay loop muted playsinline></video>
+                            </figure>
+                            <div class="about-extra bg-dark text-light p-4 rounded shadow-sm mt-4">
+                                <h3 class="section-heading text-warning">Nossos Valores</h3>
                                 <p><strong>Excelência:</strong> Buscamos a perfeição em cada detalhe</p>
                                 <p><strong>Tradição:</strong> Respeitamos as técnicas clássicas da barbearia</p>
                                 <p><strong>Inovação:</strong> Estamos sempre atualizados com as últimas tendências</p>
@@ -86,7 +69,9 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
+
+
         <!-- end about -->
 
         <!-- footer -->

@@ -186,6 +186,7 @@
 *::before,
 *::after {
   box-sizing: border-box;
+  background: black;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -270,6 +271,7 @@ h6, .h6 {
 p {
   margin-top: 0;
   margin-bottom: 1rem;
+  color: white;
 }
 
 abbr[title] {
@@ -3066,7 +3068,7 @@ textarea.form-control-lg {
 
 .btn-primary {
   --bs-btn-color: #fff;
-  --bs-btn-bg: #0d6efd;
+  --bs-btn-bg: #0a96e7;
   --bs-btn-border-color: #0d6efd;
   --bs-btn-hover-color: #fff;
   --bs-btn-hover-bg: #0b5ed7;
@@ -3100,7 +3102,7 @@ textarea.form-control-lg {
 
 .btn-success {
   --bs-btn-color: #fff;
-  --bs-btn-bg: #198754;
+  --bs-btn-bg: #0b9aec;
   --bs-btn-border-color: #198754;
   --bs-btn-hover-color: #fff;
   --bs-btn-hover-bg: #157347;
@@ -4113,7 +4115,7 @@ textarea.form-control-lg {
   .navbar-expand-sm .navbar-nav .nav-link {
     padding-right: var(--bs-navbar-nav-link-padding-x);
     padding-left: var(--bs-navbar-nav-link-padding-x);
-  }
+    background: ghostwhite;
   .navbar-expand-sm .navbar-nav-scroll {
     overflow: visible;
   }
@@ -12940,6 +12942,7 @@ textarea.form-control-lg {
 
 .app-content {
   padding: 0 0.5rem;
+  background: #084298;
 }
 
 .app-header {
