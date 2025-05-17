@@ -4,7 +4,13 @@
 <head>
      <?php require_once('template/head.php'); ?></head>
 
-<body class="main-layout">
+<body class="main-layout" id="conteudo">
+
+   <div id="preloader">
+        <div class="loader"></div>
+    </div>
+
+
     <div class="wrapper">
         <?php require_once('template/topo.php'); ?>
 

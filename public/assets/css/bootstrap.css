@@ -39,7 +39,9 @@
 *::before,
 *::after {
   box-sizing: border-box;
-  background: black;
+
+}
+
 
 html {
   font-family: sans-serif;

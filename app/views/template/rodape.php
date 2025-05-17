@@ -69,14 +69,7 @@
               <label for="senha">Senha:</label>
               <input type="password" name="senha" id="senha" class="form-control" required>
             </div>
-            <div class="form-group">
-              <label for="tipo_usuario">Tipo de Usuário:</label>
-              <select class="form-select" name="tipo_usuario" id="tipo_usuario" class="form-control" required>
-                <option selected>Selecione</option>
-                <option value="cliente">Cliente</option>
-                <option value="funcionario">Funcionário</option>
-              </select>
-            </div>
+
 
             <?php if (isset($_GET['login-erro'])): ?>
               <div class="alert alert-danger">

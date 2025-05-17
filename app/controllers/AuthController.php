@@ -4,65 +4,63 @@ class AuthController extends Controller
 {
     public function login()
     {
- 
+
         $dados = array();
- 
+
+
+        var_dump($_SERVER['REQUEST_METHOD'] === 'POST');
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
- 
-            $email          = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
-            $senha          = filter_input(INPUT_POST, 'senha');
-            $tipo_usuario   = filter_input(INPUT_POST, 'tipo_usuario');
- 
-            if ($email && $senha && $tipo_usuario != "Selecione") {
- 
-                if ($tipo_usuario === 'cliente') {
-                    $usuarioModel   = new Cliente();
-                    $usuario        = $usuarioModel->buscarCliente($email);
-                    $campoSenha     = 'senha';
-                    $campoId        = 'id';
-                    $campoNome      = 'nome';
-                    $campoEmail     = 'email';
-                } elseif ($tipo_usuario === 'funcionario') {
-                    $usuarioModel = new Funcionario();
-                    $usuario = $usuarioModel->buscarFunc($email);
-                    $campoSenha     = 'senha';
-                    $campoId        = 'id';
-                    $campoNome      = 'nome';
-                    $campoEmail     = 'email';
-                } else {
-                    $usuario = null;
-                }
- 
-                if ($usuario && $usuario[$campoSenha] === $senha) {
- 
-                   
-                    $_SESSION['userId']     = $usuario[$campoId];
-                    $_SESSION['userTipo']   = $tipo_usuario;
-                    $_SESSION['userNome']   = $usuario[$campoNome];
-                    $_SESSION['userEmail']  = $usuario[$campoEmail];
- 
- 
-                    //Redirecionar para a página de Dashboard
-                   
- 
- 
-                    header('Location:' . BASE_URL . 'dashboard');
+
+            $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
+            $senha = filter_input(INPUT_POST, 'senha');
+
+            if ($email && $senha) {
+
+                $usuarioModel = new Cliente();
+                $usuario      = $usuarioModel->buscarCliente($email);
+
+                if ($usuario && $usuario['senha'] === $senha) {
+                    $_SESSION['userId']           = $usuario['id'];
+                    $_SESSION['userTipo']         = 'cliente';
+                    $_SESSION['userNome']         = $usuario['nome'];
+                    $_SESSION['userEmail']        = $usuario['email'];
+                    $_SESSION['id_tipo_usuario']  = $usuario['id_tipo_usuario'];
+
+                    header('Location: ' . BASE_URL . 'dashboard');
                     exit;
-                } else {
-                    $_SESSION['login-erro'] = 'E-mail ou Senha incorretos';
                 }
+
+                $usuarioModel = new Funcionario();
+                $usuario      = $usuarioModel->buscarFunc($email);
+
+                if ($usuario && $usuario['senha'] === $senha) {
+                    $_SESSION['userId']           = $usuario['id'];
+                    $_SESSION['userTipo']         = 'funcionario';
+                    $_SESSION['userNome']         = $usuario['nome_funcionario'];
+                    $_SESSION['userEmail']        = $usuario['email'];
+                    $_SESSION['id_tipo_usuario']  = $usuario['id_tipo_usuario'];
+
+                    header('Location: ' . BASE_URL . 'dashboard');
+                    exit;
+                }
+                var_dump($usuario);
+                $_SESSION['login-erro'] = 'E-mail ou senha incorretos';
             } else {
-                //Credenciais inválidas - Dados incompletos
                 $_SESSION['login-erro'] = 'Preencha todos os dados';
             }
+
+
             header('Location: ' . BASE_URL . '?login-erro=1');
             exit;
         }
- 
-        // Se o método não for POST
+
+
         header('Location: ' . BASE_URL . '?login-erro=1');
         exit;
     }
+
+
     public function sair()
     {
         session_unset();

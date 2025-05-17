@@ -47,6 +47,7 @@
 /* #endregion */
 
 
+
 /* #region Preloader */
 
 #preloader {
@@ -55,7 +56,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: #009ed8;
+    background-color: #1f1f1f;
     z-index: 9999;
     display: flex;
     justify-content: center;
@@ -73,7 +74,7 @@
     content: '';
     width: 48px;
     height: 5px;
-    background: #ffffff50;
+    background: #f0c77477;
     position: absolute;
     top: 60px;
     left: 0;
@@ -85,7 +86,7 @@
     content: '';
     width: 100%;
     height: 100%;
-    background: #ffffff;
+    background: #f0c674;
     position: absolute;
     top: 0;
     left: 0;
@@ -302,13 +303,7 @@ button {
     cursor: pointer;
 }
 
-html{
-    scroll-behavior: smooth;
 
-    body{
-
-    }
-}
 
 /*--------------------------------------------------------------------- 
 Seção de Cabeçalho 
@@ -661,7 +656,7 @@ a.article:hover {
         .swiper {
             width: 100%;
             height: 100%;
-            background: #000;
+
         }
 
         .swiper-slide {
@@ -685,7 +680,7 @@ a.article:hover {
                 content: "";
                 position: absolute;
                 inset: 0;
-                background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.2));
+                background: linear-gradient(to bottom, #1f1f1f49, #1f1f1f49);
                 z-index: 0;
             }
 
@@ -1250,10 +1245,13 @@ a.article:hover {
 
 /* #region contato  */
 .contact {
-    background: url(../img/contact_bg.jpg) no-repeat center center/cover;
+    background: url('https://agenciatipi02.smpsistema.com.br/visiontech/barbernac/public/assets/img/bg2.png') no-repeat center center/cover;
     padding: 90px 0;
     color: #fff;
     font-family: 'Poppins', sans-serif;
+
+                  
+
 }
 
 .title h2 {
@@ -1444,126 +1442,133 @@ a.article:hover {
 
 /* Modal Login */
 .modalLogin .modal-content {
-  background: #1c1c1c; /* fundo escuro */
-  border-radius: 1rem;
-  border: 2px solid #f0c674; /* dourado */
-  color: #eee;
-  box-shadow: 0 10px 20px rgba(240, 198, 116, 0.5);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #1c1c1c;
+    /* fundo escuro */
+    border-radius: 1rem;
+    border: 2px solid #f0c674;
+    /* dourado */
+    color: #eee;
+    box-shadow: 0 10px 20px rgba(240, 198, 116, 0.5);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /* Cabeçalho do modal */
 .modalLogin .modal-header {
-  border-bottom: 2px solid #f0c674;
-  padding: 1.5rem 1.5rem 1rem 1.5rem;
+    border-bottom: 2px solid #f0c674;
+    padding: 1.5rem 1.5rem 1rem 1.5rem;
 }
 
 .modalLogin .modal-title {
-  color: #f0c674;
-  font-weight: 700;
-  font-size: 1.5rem;
+    color: #f0c674;
+    font-weight: 700;
+    font-size: 1.5rem;
 }
 
 .modalLogin .btn-close {
-  filter: invert(1); /* botão fechar branco */
-  opacity: 0.7;
-  transition: opacity 0.3s ease;
+    filter: invert(1);
+    /* botão fechar branco */
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
 }
+
 .modalLogin .btn-close:hover {
-  opacity: 1;
+    opacity: 1;
 }
 
 /* Corpo do modal */
 .modalLogin .modal-body {
-  padding: 1rem 1.5rem 1.5rem 1.5rem;
+    padding: 1rem 1.5rem 1.5rem 1.5rem;
 }
 
 /* Formulário */
 .modalLogin label {
-  color: #f0c674;
-  font-weight: 600;
-  margin-bottom: 0.3rem;
-  display: block;
+    color: #f0c674;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+    display: block;
 }
 
 .modalLogin .form-control,
 .modalLogin .form-select {
-  background: #2a2a2a !important;
-  border: 1.5px solid #444;
-  color: #eee;
-  border-radius: 0.5rem;
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
-  transition: border-color 0.3s ease;
+    background: #2a2a2a !important;
+    border: 1.5px solid #444;
+    color: #eee;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
 }
 
 .modalLogin .form-control:focus,
 .modalLogin .form-select:focus {
-  border-color: #f0c674;
-  box-shadow: 0 0 8px #f0c674aa;
-  background: #3a3a3a;
-  color: #fff;
-  outline: none;
+    border-color: #f0c674;
+    box-shadow: 0 0 8px #f0c674aa;
+    background: #3a3a3a;
+    color: #fff;
+    outline: none;
 }
 
 /* Alertas */
 .modalLogin .alert-danger {
-  background-color: #a94442;
-  color: #fff;
-  border-radius: 0.5rem;
-  padding: 0.7rem 1rem;
-  margin-top: 1rem;
-  font-weight: 600;
-  text-align: center;
+    background-color: #a94442;
+    color: #fff;
+    border-radius: 0.5rem;
+    padding: 0.7rem 1rem;
+    margin-top: 1rem;
+    font-weight: 600;
+    text-align: center;
 }
 
 /* Rodapé */
 .modalLogin .modal-footer {
-  border-top: 2px solid #f0c674;
-  padding: 1rem 1.5rem;
-  justify-content: flex-end;
+    border-top: 2px solid #f0c674;
+    padding: 1rem 1.5rem;
+    justify-content: flex-end;
 }
 
 /* Botões */
 .modalLogin .btn-secondary {
-  background: #444;
-  border: none;
-  color: #ccc;
-  padding: 0.5rem 1.5rem;
-  border-radius: 0.5rem;
-  font-weight: 600;
-  transition: background-color 0.3s ease;
+    background: #444;
+    border: none;
+    color: #ccc;
+    padding: 0.5rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
 }
+
 .modalLogin .btn-secondary:hover {
-  background: #f0c674;
-  color: #111;
-  cursor: pointer;
+    background: #f0c674;
+    color: #111;
+    cursor: pointer;
 }
 
 .modalLogin .btn-primary {
-  background: #f0c674;
-  border: none;
-  color: #111;
-  padding: 0.5rem 1.5rem;
-  border-radius: 0.5rem;
-  font-weight: 700;
-  box-shadow: 0 4px 15px #f0c674cc;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    background: #f0c674;
+    border: none;
+    color: #111;
+    padding: 0.5rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 700;
+    box-shadow: 0 4px 15px #f0c674cc;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
+
 .modalLogin .btn-primary:hover {
-  background: #d4b159;
-  box-shadow: 0 6px 20px #d4b159cc;
-  cursor: pointer;
+    background: #d4b159;
+    box-shadow: 0 6px 20px #d4b159cc;
+    cursor: pointer;
 }
 
 /* Ajustes responsivos */
 @media (max-width: 576px) {
-  .modalLogin .modal-content {
-    margin: 1rem;
-  }
-  .modalLogin .modal-title {
-    font-size: 1.25rem;
-  }
+    .modalLogin .modal-content {
+        margin: 1rem;
+    }
+
+    .modalLogin .modal-title {
+        font-size: 1.25rem;
+    }
 }
 
 
@@ -1738,6 +1743,3 @@ a.article:hover {
         margin-top: 2rem;
     }
 }
-
-
-
