@@ -7,7 +7,7 @@
                  <div class="swiper-slide" style="background-image: url('<?= BASE_URL ?>assets/img/bg2.png');">
                      <div class="overlay-gradient"></div>
                      <div class="slide-txt" data-swiper-parallax="-300">
-                         <img src="<?= BASE_URL ?>assets/img/logo_white.png" alt="Logo" class="logo-parallax"
+                         
                              data-swiper-parallax-opacity="0">
                          <div class="title" data-swiper-parallax="-300">Transforme seu Visual</div>
                          <div class="subtitle" data-swiper-parallax="-200">Corte com Estilo</div>
@@ -22,7 +22,7 @@
                      style="background-image: url('<?= BASE_URL ?>assets/img/bg3.png'); filter: brightness(0.8);">
                      <div class="overlay-gradient"></div>
                      <div class="slide-txt" data-swiper-parallax="-300">
-                         <img src="<?= BASE_URL ?>assets/img/logo_white.png" alt="Logo" class="logo-parallax">
+                        
                          <div class="title" data-swiper-parallax="-250">Conforto e Estilo</div>
                          <div class="subtitle" data-swiper-parallax="-200">Ambiente Aconchegante</div>
                          <div class="text" data-swiper-parallax="-100">
@@ -35,7 +35,7 @@
                  <div class="swiper-slide" style="background-image: url('<?= BASE_URL ?>assets/img/banner.jpg'); filter: sepia(0.3);">
                      <div class="overlay-gradient"></div>
                      <div class="slide-txt" data-swiper-parallax="-300">
-                         <img src="<?= BASE_URL ?>assets/img/logo_white.png" alt="Logo" class="logo-parallax">
+                        
                          <div class="title" data-swiper-parallax="-250">A Arte da Barbearia</div>
                          <div class="subtitle" data-swiper-parallax="-200">Sinta-se como um Rei</div>
                          <div class="text" data-swiper-parallax="-100">
@@ -49,7 +49,7 @@
                      style="background-image: url('<?= BASE_URL ?>assets/img/bg4.png'); transform: scale(1.02);">
                      <div class="overlay-gradient"></div>
                      <div class="slide-txt" data-swiper-parallax="-300">
-                         <img src="<?= BASE_URL ?>assets/img/logo_white.png" alt="Logo" class="logo-parallax">
+                       
                          <div class="title" data-swiper-parallax="-250">Corte Personalizado</div>
                          <div class="subtitle" data-swiper-parallax="-200">Do Seu Jeito</div>
                          <div class="text" data-swiper-parallax="-100">
@@ -64,7 +64,7 @@
                      style="background-image: url('<?= BASE_URL ?>assets/img/bg5.png'); filter: contrast(1.2);">
                      <div class="overlay-gradient"></div>
                      <div class="slide-txt" data-swiper-parallax="-300">
-                         <img src="<?= BASE_URL ?>assets/img/logo_white.png" alt="Logo" class="logo-parallax">
+                         
                          <div class="title" data-swiper-parallax="-250">Promoções Especiais</div>
                          <div class="subtitle" data-swiper-parallax="-200">Agende Agora!</div>
                          <div class="text" data-swiper-parallax="-100">

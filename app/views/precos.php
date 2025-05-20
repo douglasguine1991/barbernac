@@ -224,7 +224,7 @@
 
         .btn_agendar {
             display: inline-block;
-            background: rgb(5, 183, 228);
+            background:  #f0c674;
             color: #333;
             padding: 12px 30px;
             border-radius: 5px;

@@ -166,16 +166,16 @@
         }
 
         .btn-primary {
-            background-color:rgb(10, 190, 235);
-            border-color:rgb(7, 198, 231);
+            background-color: #f0c674;
+            border-color: #f0c674;
             color: #333;
             padding: 12px 30px;
             font-weight: bold;
         }
 
         .btn-primary:hover {
-            background-color:rgb(7, 204, 230);
-            border-color:rgb(10, 184, 228);
+            background-color: #f0c674;
+            border-color: #f0c674;
         }
     </style>
 </body>
