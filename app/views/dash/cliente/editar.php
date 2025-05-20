@@ -1,4 +1,4 @@
-<form method="POST" action="<?= BASE_URL ?>cliente/editar/<?php echo $cliente['id_cliente']; ?>" enctype="multipart/form-data">
+<form method="POST" action="<?= BASE_URL ?>cliente/editar/<?php echo $cliente['id']; ?>" enctype="multipart/form-data">
     <div class="container my-5">
         <div class="row">
             <div class="col-md-3">
@@ -14,7 +14,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <label for="nome_cliente" class="form-label">Nome do Cliente:</label>
-                        <input type="text" class="form-control" id="nome_cliente" name="nome_cliente" value="<?php echo htmlspecialchars($cliente['nome_cliente']); ?>" required>
+                        <input type="text" class="form-control" id="nome_cliente" name="nome_cliente" value="<?php echo htmlspecialchars($cliente['nome']); ?>" required>
                     </div>
                     <div class="col-md-6">
                         <label for="tipo_cliente" class="form-label">Tipo de Cliente:</label>

@@ -10,7 +10,9 @@ class FuncionariosController extends Controller
             session_start();
         }
         $this->funcionarioModel = new Funcionario();
+        
     }
+    
 
     // 1- Método para listar todos os funcionários
     public function listar()
@@ -71,52 +73,56 @@ class FuncionariosController extends Controller
 
     // 3- Método para editar funcionário
     public function editar($id = null)
-    {
-        if (!isset($_SESSION['userTipo']) || $_SESSION['userTipo'] !== 'funcionario') {
-            header('Location:' . BASE_URL);
-            exit;
-        }
-
-        if ($id === null) {
-            header('Location: ' . BASE_URL . 'funcionario/listar');
-            exit;
-        }
-
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $nome = filter_input(INPUT_POST, 'nome_funcionario', FILTER_SANITIZE_SPECIAL_CHARS);
-            $telefone = filter_input(INPUT_POST, 'telefone', FILTER_SANITIZE_SPECIAL_CHARS);
-            $cargo = filter_input(INPUT_POST, 'cargo', FILTER_SANITIZE_SPECIAL_CHARS);
-
-            $foto = null;
-            if (isset($_FILES['foto']) && $_FILES['foto']['error'] == 0) {
-                $foto = $this->uploadFoto($_FILES['foto']);
-            }
-
-            if ($nome && $telefone && $cargo) {
-                $dadosFuncionario = array(
-                    'nome_funcionario' => $nome,
-                    'telefone'         => $telefone,
-                    'cargo'            => $cargo,
-                    'foto'             => $foto
-                );
-
-                $atualizado = $this->funcionarioModel->atualizarFuncionario($id, $dadosFuncionario);
-
-                if ($atualizado) {
-                    $_SESSION['mensagem'] = "Funcionário atualizado com sucesso!";
-                    header('Location: ' . BASE_URL . 'funcionario/listar');
-                    exit;
-                } else {
-                    $dados['mensagem'] = "Erro ao atualizar o funcionário";
-                }
-            } else {
-                $dados['mensagem'] = "Preencha todos os campos obrigatórios!";
-            }
-        }
-
-        $dados['conteudo'] = 'dash/funcionario/editar';
-        $this->carregarViews('dash/dashboard', $dados);
+{
+    if (!isset($_SESSION['userTipo']) || $_SESSION['userTipo'] !== 'funcionario') {
+        header('Location:' . BASE_URL);
+        exit;
     }
+
+    if ($id === null) {
+        header('Location: ' . BASE_URL . 'funcionario/listar');
+        exit;
+    }
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $nome = filter_input(INPUT_POST, 'nome_funcionario', FILTER_SANITIZE_SPECIAL_CHARS);
+        $telefone = filter_input(INPUT_POST, 'telefone', FILTER_SANITIZE_SPECIAL_CHARS);
+        $cargo = filter_input(INPUT_POST, 'cargo', FILTER_SANITIZE_SPECIAL_CHARS);
+
+        $foto = null;
+        if (isset($_FILES['foto']) && $_FILES['foto']['error'] == 0) {
+            $foto = $this->uploadFoto($_FILES['foto']);
+        }
+
+        if ($nome && $telefone && $cargo) {
+            $dadosFuncionario = array(
+                'nome_funcionario' => $nome,
+                'telefone'         => $telefone,
+                'cargo'            => $cargo,
+                'foto'             => $foto
+            );
+
+            $atualizado = $this->funcionarioModel->atualizarFuncionario($id, $dadosFuncionario);
+
+            if ($atualizado) {
+                $_SESSION['mensagem'] = "Funcionário atualizado com sucesso!";
+                header('Location: ' . BASE_URL . 'funcionario/listar');
+                exit;
+            } else {
+                $dados['mensagem'] = "Erro ao atualizar o funcionário";
+            }
+        } else {
+            $dados['mensagem'] = "Preencha todos os campos obrigatórios!";
+        }
+    }
+
+    // ✅ Aqui está o que estava faltando:
+    $funcionario = $this->funcionarioModel->getFuncionarioById($id);
+    $dados['funcionario'] = $funcionario;
+
+    $dados['conteudo'] = 'dash/funcionario/editar';
+    $this->carregarViews('dash/dashboard', $dados);
+}
 
     // 4- Método para desativar funcionário
     public function desativar()

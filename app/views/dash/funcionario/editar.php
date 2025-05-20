@@ -83,26 +83,11 @@
                 <div class="row">
                     <div class="col-md-6">
                         <label for="cargo_funcionario" class="form-label">Cargo:</label>
-                        <input type="text" class="form-control" id="cargo_funcionario" name="cargo_funcionario" value="<?php echo htmlspecialchars($funcionario['cargo_funcionario']); ?>" required>
+                        <input type="text" class="form-control" id="cargo" name="cargo" value="<?php echo htmlspecialchars($funcionario['cargo']); ?>" required>
                     </div>
                     <div class="col-md-6">
                         <label for="salario_funcionario" class="form-label">Salário:</label>
                         <input type="text" class="form-control" id="salario_funcionario" name="salario_funcionario" value="<?php echo htmlspecialchars($funcionario['salario_funcionario']); ?>" required>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-4">
-                        <label for="facebook_funcionario" class="form-label">Facebook:</label>
-                        <input type="text" class="form-control" id="facebook_funcionario" name="facebook_funcionario" value="<?php echo htmlspecialchars($funcionario['facebook_funcionario']); ?>">
-                    </div>
-                    <div class="col-md-4">
-                        <label for="instagram_funcionario" class="form-label">Instagram:</label>
-                        <input type="text" class="form-control" id="instagram_funcionario" name="instagram_funcionario" value="<?php echo htmlspecialchars($funcionario['instagram_funcionario']); ?>">
-                    </div>
-                    <div class="col-md-4">
-                        <label for="linkedin_funcionario" class="form-label">LinkedIn:</label>
-                        <input type="text" class="form-control" id="linkedin_funcionario" name="linkedin_funcionario" value="<?php echo htmlspecialchars($funcionario['linkedin_funcionario']); ?>">
                     </div>
                 </div>
 
