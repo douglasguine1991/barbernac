@@ -36,8 +36,7 @@
         <!-- end loader -->
         <?php require_once('template/topo.php'); ?>
 
-            <!-- end header -->
-            
+            <!-- #region header  -->
             <div class="yellow_bg">
                 <div class="container">
                     <div class="row">
@@ -49,7 +48,7 @@
                     </div>
                 </div>
             </div>
-            
+            <!-- #endregion  -->
             <!-- nossos barbeiros -->
             <section class="resip_section">
                 <div class="container">
