@@ -82,7 +82,7 @@
 
                 <div class="row">
                     <div class="col-md-6">
-                        <label for="cargo_funcionario" class="form-label">Cargo:</label>
+                        <label for="cargo" class="form-label">Cargo:</label>
                         <input type="text" class="form-control" id="cargo" name="cargo" value="<?php echo htmlspecialchars($funcionario['cargo']); ?>" required>
                     </div>
                     <div class="col-md-6">

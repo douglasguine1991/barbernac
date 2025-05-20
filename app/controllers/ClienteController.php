@@ -14,6 +14,29 @@ class ClienteController extends Controller
         $this->clienteModel = new Cliente();
     }
 
+    public function desativar($id)
+{
+    if (!isset($_SESSION['userTipo']) || $_SESSION['userTipo'] !== 'funcionario') {
+        header('Location:' . BASE_URL);
+        exit;
+    }
+
+    if ($id) {
+        $resultado = $this->clienteModel->desativarCliente($id);
+
+        if ($resultado) {
+            $_SESSION['mensagem'] = "Cliente desativado com sucesso!";
+            $_SESSION['tipo-msg'] = "Sucesso";
+        } else {
+            $_SESSION['mensagem'] = "Erro ao desativar cliente.";
+            $_SESSION['tipo-msg'] = "Erro";
+        }
+    }
+
+    header('Location: ' . BASE_URL . 'cliente/listar');
+    exit;
+}
+
     public function listar()
 {
     if (!isset($_SESSION['userTipo']) || $_SESSION['userTipo'] !== 'funcionario') {

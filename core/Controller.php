@@ -1,15 +1,16 @@
 <?php
 
-class Controller{
+class Controller {
 
-    public function carregarViews($view, $dados = array()){
-
+    public function carregarViews($view, $dados = array()) {
         extract($dados);
 
+        $caminhoView = '../app/views/' . $view . '.php';
 
-        require '../app/views/' . $view . '.php';
-        //      ../app/views/servico.php
-
+        if (file_exists($caminhoView)) {
+            require $caminhoView;
+        } else {
+            require '../app/views/template/erro.php';
+        }
     }
-
 }

@@ -1,6 +1,6 @@
 <?php
 
-class FuncionariosController extends Controller
+class FuncionarioController extends Controller
 {
     private $funcionarioModel;
 
@@ -12,7 +12,6 @@ class FuncionariosController extends Controller
         $this->funcionarioModel = new Funcionario();
         
     }
-    
 
     // 1- Método para listar todos os funcionários
     public function listar()
@@ -42,15 +41,17 @@ class FuncionariosController extends Controller
             $nome = filter_input(INPUT_POST, 'nome_funcionario', FILTER_SANITIZE_SPECIAL_CHARS);
             $telefone = filter_input(INPUT_POST, 'telefone', FILTER_SANITIZE_SPECIAL_CHARS);
             $cargo = filter_input(INPUT_POST, 'cargo', FILTER_SANITIZE_SPECIAL_CHARS);
+            $salario = filter_input(INPUT_POST, 'salario_funcionario', FILTER_SANITIZE_SPECIAL_CHARS);
 
-            $foto = $this->uploadFoto($_FILES['foto']);
+            $foto = $this->uploadFoto($_FILES['foto_funcionario']);
 
             if ($nome && $telefone && $cargo) {
                 $dadosFuncionario = array(
                     'nome_funcionario' => $nome,
                     'telefone'         => $telefone,
                     'cargo'            => $cargo,
-                    'foto'             => $foto
+                    'foto_funcionario'             => $foto,
+                    'salario_funcionario'             => $salario
                 );
 
                 $id_funcionario = $this->funcionarioModel->addFuncionario($dadosFuncionario);
@@ -88,6 +89,7 @@ class FuncionariosController extends Controller
         $nome = filter_input(INPUT_POST, 'nome_funcionario', FILTER_SANITIZE_SPECIAL_CHARS);
         $telefone = filter_input(INPUT_POST, 'telefone', FILTER_SANITIZE_SPECIAL_CHARS);
         $cargo = filter_input(INPUT_POST, 'cargo', FILTER_SANITIZE_SPECIAL_CHARS);
+        $salario = filter_input(INPUT_POST, 'salario_funcionario', FILTER_SANITIZE_SPECIAL_CHARS);
 
         $foto = null;
         if (isset($_FILES['foto']) && $_FILES['foto']['error'] == 0) {
@@ -99,7 +101,8 @@ class FuncionariosController extends Controller
                 'nome_funcionario' => $nome,
                 'telefone'         => $telefone,
                 'cargo'            => $cargo,
-                'foto'             => $foto
+                'foto_funcionario'             => $foto,
+                'salario_funcionario'             => $salario
             );
 
             $atualizado = $this->funcionarioModel->atualizarFuncionario($id, $dadosFuncionario);
@@ -125,11 +128,35 @@ class FuncionariosController extends Controller
 }
 
     // 4- Método para desativar funcionário
-    public function desativar()
+    public function desativar($id = null)
     {
-        $dados = array();
-        $dados['conteudo'] = 'dash/funcionario/desativar';
-        $this->carregarViews('dash/dashboard', $dados);
+        if (!isset($_SESSION['userTipo']) || $_SESSION['userTipo'] !== 'funcionario') {
+            header('Location:' . BASE_URL);
+            exit;
+        }
+    
+        if ($id === null) {
+            header('Location: ' . BASE_URL . 'funcionario/listar');
+            exit;
+        }
+    
+        // Instancia o model se ainda não tiver
+        if (!isset($this->funcionarioModel)) {
+            $this->funcionarioModel = new Funcionario();
+        }
+    
+        $resultado = $this->funcionarioModel->desativarFuncionario($id);
+    
+        if ($resultado) {
+            $_SESSION['mensagem'] = "Funcionário desativado com sucesso!";
+            $_SESSION['tipo-msg'] = "Sucesso";
+        } else {
+            $_SESSION['mensagem'] = "Erro ao desativar funcionário.";
+            $_SESSION['tipo-msg'] = "Erro";
+        }
+    
+        header('Location: ' . BASE_URL . 'funcionario/listar');
+        exit;
     }
 
     // 5- Método para upload de fotos

@@ -15,7 +15,7 @@ class Funcionario extends Model
     // Listar todos os funcionários
     public function getListarFuncionarios()
     {
-        $sql = "SELECT * FROM funcionarios ORDER BY nome_funcionario;";
+        $sql = "SELECT * FROM funcionarios WHERE status_funcionario = 'Ativo'";
         $stmt = $this->db->query($sql);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -24,7 +24,7 @@ class Funcionario extends Model
     public function addFuncionario($dados)
     {
         $sql = "INSERT INTO funcionarios (nome, telefone, email, senha, cargo) 
-                VALUES (:nome, :telefone, :email, :senha, :cargo)";
+                VALUES (:nome, :telefone, :email, :senha, :cargo, :salario)";
         
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(':nome', $dados['nome']);
@@ -32,6 +32,7 @@ class Funcionario extends Model
         $stmt->bindValue(':email', $dados['email']);
         $stmt->bindValue(':senha', password_hash($dados['senha'], PASSWORD_DEFAULT)); // Hash da senha
         $stmt->bindValue(':cargo', $dados['cargo']);
+        $stmt->bindValue(':salario', $dados['salario']);
         
         $stmt->execute();
         return $this->db->lastInsertId();
@@ -45,6 +46,7 @@ class Funcionario extends Model
                     telefone = :telefone,
                     email = :email,
                     cargo = :cargo
+                    salario = :salario
                 WHERE id = :id";
 
         $stmt = $this->db->prepare($sql);
@@ -52,6 +54,7 @@ class Funcionario extends Model
         $stmt->bindValue(':telefone', $dados['telefone']);
         $stmt->bindValue(':email', $dados['email']);
         $stmt->bindValue(':cargo', $dados['cargo']);
+        $stmt->bindValue(':salario', $dados['salario']);
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
 
         return $stmt->execute();
@@ -66,4 +69,12 @@ class Funcionario extends Model
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
+    public function desativarFuncionario($id)
+{
+    $sql = "UPDATE funcionarios SET status_funcionario = 'Inativo' WHERE id = :id";
+    $stmt = $this->db->prepare($sql);
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    return $stmt->execute();
+}
 }

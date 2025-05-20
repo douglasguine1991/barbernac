@@ -34,13 +34,10 @@ class Cliente extends Model
 
     public function getListarCliente()
     {
-        $sql = "SELECT * FROM clientes;";
+        $sql = "SELECT * FROM clientes WHERE status_cliente = 'Ativo'";
 
         $stmt = $this->db->query($sql);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-
-        // Adicionar no banco de dados os que for cadastro do cliente 
     }
 
 
@@ -102,4 +99,12 @@ $stmt->bindValue(':senha', $dados['senha']);
         $stmt->bindValue(':id', $id_cliente);
         $stmt->execute();
     }
+
+    public function desativarCliente($id)
+{
+    $sql = "UPDATE clientes SET status_cliente = 'Inativo' WHERE id = :id";
+    $stmt = $this->db->prepare($sql);
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    return $stmt->execute();
+}
 }
