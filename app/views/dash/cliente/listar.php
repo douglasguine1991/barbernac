@@ -142,7 +142,7 @@ if (isset($_SESSION['mensagem']) && isset($_SESSION['tipo-msg'])) {
                 <th scope="col">Nome</th>
                 <th scope="col">Email</th>
                 <th scope="col">Telefone</th>
-                <th scope="col">Estado ID</th>
+                <th scope="col">Estado </th>
                 <th scope="col">Data de Cadastro</th>
                 <th scope="col">Senha</th>
                 <th scope="col">Editar</th>
@@ -172,7 +172,7 @@ if (isset($_SESSION['mensagem']) && isset($_SESSION['tipo-msg'])) {
                     <td><?= htmlspecialchars($linha['nome']) ?></td>
                     <td><?= htmlspecialchars($linha['email']) ?></td>
                     <td><?= htmlspecialchars($linha['telefone']) ?></td>
-                    <td><?= htmlspecialchars($linha['estado_id']) ?></td>
+                    <td><?= htmlspecialchars($linha['id_uf']) ?></td>
                     <td><?= htmlspecialchars($linha['data_cadastro']) ?></td>
                     <td>
                         <span class="text-muted text-truncate d-inline-block"><?= htmlspecialchars($linha['senha']) ?></span>

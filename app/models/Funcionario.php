@@ -42,23 +42,24 @@ class Funcionario extends Model
     public function atualizarFuncionario($id, $dados)
     {
         $sql = "UPDATE funcionarios SET 
-                    nome = :nome,
+                    nome_funcionario = :nome_funcionario,
                     telefone = :telefone,
                     email = :email,
-                    cargo = :cargo
-                    salario = :salario
+                    cargo = :cargo,
+                    salario_funcionario = :salario_funcionario
                 WHERE id = :id";
-
+    
         $stmt = $this->db->prepare($sql);
-        $stmt->bindValue(':nome', $dados['nome']);
+        $stmt->bindValue(':nome_funcionario', $dados['nome_funcionario']);
         $stmt->bindValue(':telefone', $dados['telefone']);
         $stmt->bindValue(':email', $dados['email']);
         $stmt->bindValue(':cargo', $dados['cargo']);
-        $stmt->bindValue(':salario', $dados['salario']);
+        $stmt->bindValue(':salario_funcionario', $dados['salario_funcionario']);
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
-
+    
         return $stmt->execute();
     }
+    
 
     // Buscar funcionário por ID
     public function getFuncionarioById($id)

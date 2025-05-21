@@ -83,7 +83,9 @@
                 <div class="row">
                     <div class="col-md-6">
                         <label for="cargo" class="form-label">Cargo:</label>
-                        <input type="text" class="form-control" id="cargo" name="cargo" value="<?php echo htmlspecialchars($funcionario['cargo']); ?>" required>
+                        <input type="text" class="form-control" id="cargo" name="cargo"
+    value="<?php echo isset($funcionario['cargo']) ? htmlspecialchars($funcionario['cargo']) : ''; ?>"
+    required>
                     </div>
                     <div class="col-md-6">
                         <label for="salario_funcionario" class="form-label">Salário:</label>

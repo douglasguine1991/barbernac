@@ -1,102 +1,104 @@
 <form method="POST" action="<?= BASE_URL ?>cliente/editar/<?php echo $cliente['id']; ?>" enctype="multipart/form-data">
-    <div class="container my-5">
-        <div class="row">
-            <div class="col-md-3">
-                <img id="preview-img"
-                    src="<?php echo isset($cliente['foto_cliente']) && file_exists($_SERVER['DOCUMENT_ROOT'] . '/barbernac/public/uploads/' . $cliente['foto_cliente']) ? '<?= BASE_URL ?>uploads/' . $cliente['foto_cliente'] : '<?= BASE_URL ?>uploads/sem-foto.png'; ?>"
-                    alt="Foto do Cliente"
-                    style="width:100%; cursor:pointer;"
-                    title="Clique na imagem para selecionar uma foto">
-                <input type="file" name="foto_cliente" id="foto_cliente" style="display: none;" accept="image/*">
-            </div>
 
-            <div class="col-md-9">
-                <div class="row">
-                    <div class="col-md-6">
-                        <label for="nome_cliente" class="form-label">Nome do Cliente:</label>
-                        <input type="text" class="form-control" id="nome_cliente" name="nome_cliente" value="<?php echo htmlspecialchars($cliente['nome']); ?>" required>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="tipo_cliente" class="form-label">Tipo de Cliente:</label>
-                        <select class="form-select" id="tipo_cliente" name="tipo_cliente" required>
-                            <option value="Fisica" <?php echo $cliente['tipo_cliente'] == 'Fisica' ? 'selected' : ''; ?>>Física</option>
-                            <option value="Juridica" <?php echo $cliente['tipo_cliente'] == 'Juridica' ? 'selected' : ''; ?>>Jurídica</option>
-                        </select>
-                    </div>
-                </div>
+<div class="container my-5">
+  <div class="row">
+    <!-- Imagem do Cliente -->
+    <div class="col-md-4">
+    <?php
+        $caminhoArquivo = BASE_URL . "uploads/" . $cliente['foto_cliente'];
+        $img = BASE_URL . "uploads/sem-foto.png";
 
-                <div class="row">
-                    <div class="col-md-6">
-                        <label for="cpf_cnpj_cliente" class="form-label">CPF/CNPJ:</label>
-                        <input type="text" class="form-control" id="cpf_cnpj_cliente" name="cpf_cnpj_cliente" value="<?php echo htmlspecialchars($cliente['cpf_cnpj_cliente']); ?>" required>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="data_nasc_cliente" class="form-label">Data de Nascimento:</label>
-                        <input type="date" class="form-control" id="data_nasc_cliente" name="data_nasc_cliente" value="<?php echo htmlspecialchars($cliente['data_nasc_cliente']); ?>" required>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-6">
-                        <label for="email_cliente" class="form-label">E-mail:</label>
-                        <input type="email" class="form-control" id="email_cliente" name="email_cliente" value="<?php echo htmlspecialchars($cliente['email']); ?>" required>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="senha_cliente" class="form-label">Senha:</label>
-                        <input type="password" class="form-control" id="senha_cliente" name="senha_cliente" value="<?php echo htmlspecialchars($cliente['senha']); ?>" required>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-6">
-                        <label for="telefone_cliente" class="form-label">Telefone:</label>
-                        <input type="text" class="form-control" id="telefone_cliente" name="telefone_cliente" value="<?php echo htmlspecialchars($cliente['telefone']); ?>" required>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="endereco_cliente" class="form-label">Endereço:</label>
-                        <input type="text" class="form-control" id="endereco_cliente" name="endereco_cliente">
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-6">
-                        <label for="bairro_cliente" class="form-label">Bairro:</label>
-                        <input type="text" class="form-control" id="bairro_cliente">
-                    </div>
-                    <div class="col-md-6">
-                        <label for="cidade_cliente" class="form-label">Cidade:</label>
-                        <input type="text" class="form-control" id="cidade_cliente">
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-6">
-                        <label for="id_uf" class="form-label">Estado:</label>
-                        <select class="form-select" id="id_uf" name="id_uf" required>
-                            <option value="0">Selecione</option>
-                            <?php foreach ($estados as $linha): ?>
-                                <option value="<?php echo $linha['id_uf']; ?>" <?php echo $cliente['id'] == $linha['id'] ? 'selected' : ''; ?>><?php echo $linha['nome']; ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="col-md-6">
-                    <label for="status_cliente" class="form-label">Status:</label>
-                    <select class="form-control" id="status_cliente" name="status_cliente" required>
-                        <option value="1" <?php echo $cliente['status_cliente'] == 1 ? 'selected' : ''; ?>>Ativo</option>
-                        <option value="0" <?php echo $cliente['status_cliente'] == 0 ? 'selected' : ''; ?>>Inativo</option>
-                    </select>
-                </div>
-
-                <div class="mt-4">
-                    <button type="submit" class="btn btn-success">Salvar</button>
-                    <a href="<?= BASE_URL ?>cliente/listar" class="btn btn-secondary">Cancelar</a>
-                </div>
-            </div>
-        </div>
+        if (!empty($cliente['foto_cliente'])) {
+            $headers = @get_headers($caminhoArquivo);
+            if ($headers && strpos($headers[0], '200') !== false) {
+                $img = $caminhoArquivo;
+            }
+        }
+    ?>
+      <img src="<?= $img ?>" alt="Foto do Cliente" class="img-fluid" id="preview-img" style="width:100%; cursor:pointer;">
+      <input type="file" name="foto_cliente" id="foto_cliente" style="display: none;" accept="image/*">
     </div>
+
+    <div class="col-md-8">
+      <!-- Nome -->
+      <div class="mb-3">
+        <label for="nome_cliente" class="form-label">Nome Completo:</label>
+        <input type="text" class="form-control" id="nome_cliente" name="nome_cliente" value="<?= htmlspecialchars($cliente['nome']) ?>" required>
+      </div>
+
+      <!-- Tipo Cliente e CPF/CNPJ -->
+      <div class="row g-3">
+        <div class="col-md-6">
+          <label for="tipo_cliente" class="form-label">Tipo de Cliente:</label>
+          <select class="form-control" id="tipo_cliente" name="tipo_cliente" required>
+            <option value="Física" <?= ($cliente['tipo_cliente'] == 'Física') ? 'selected' : '' ?>>Pessoa Física</option>
+            <option value="Jurídica" <?= ($cliente['tipo_cliente'] == 'Jurídica') ? 'selected' : '' ?>>Pessoa Jurídica</option>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label for="cpf_cnpj_cliente" class="form-label">CPF/CNPJ:</label>
+          <input type="text" class="form-control" id="cpf_cnpj_cliente" name="cpf_cnpj_cliente" value="<?= htmlspecialchars($cliente['cpf_cnpj_cliente']) ?>" required>
+        </div>
+      </div>
+
+      <!-- E-mail e Senha -->
+      <div class="row g-3">
+        <div class="col-md-6">
+          <label for="email_cliente" class="form-label">E-mail:</label>
+          <input type="email" class="form-control" id="email_cliente" name="email_cliente" value="<?= htmlspecialchars($cliente['email']) ?>" required>
+        </div>
+        <div class="col-md-6">
+          <label for="senha_cliente" class="form-label">Senha:</label>
+          <input type="password" class="form-control" id="senha_cliente" name="senha_cliente" placeholder="••••••••">
+        </div>
+      </div>
+
+      <!-- Data de Nascimento, Telefone e Status -->
+      <div class="row g-3">
+        <div class="col-md-4">
+          <label for="data_nasc_cliente" class="form-label">Data de Nascimento:</label>
+          <input type="date" class="form-control" id="data_nasc_cliente" name="data_nasc_cliente" value="<?= $cliente['data_nasc_cliente'] ?>" required>
+        </div>
+        <div class="col-md-4">
+          <label for="telefone_cliente" class="form-label">Telefone:</label>
+          <input type="tel" class="form-control" id="telefone_cliente" name="telefone_cliente" value="<?= htmlspecialchars($cliente['telefone']) ?>" required>
+        </div>
+        <div class="col-md-4">
+          <label for="status_cliente" class="form-label">Status:</label>
+          <select class="form-control" id="status_cliente" name="status_cliente" required>
+            <option value="Ativo" <?= ($cliente['status_cliente'] == 'Ativo') ? 'selected' : '' ?>>Ativo</option>
+            <option value="Inativo" <?= ($cliente['status_cliente'] == 'Inativo') ? 'selected' : '' ?>>Inativo</option>
+          </select>
+        </div>
+      </div>
+
+  
+
+      <!-- Estado -->
+      <div class="row g-3 mt-2">
+        <div class="col-md-4">
+          <label for="id_uf" class="form-label">Estado:</label>
+          <select class="form-select" id="id_uf" name="id_uf" required>
+            <option value="">Selecione</option>
+            <?php foreach ($estados as $linha): ?>
+              <option value="<?= $linha['id_uf'] ?>" <?= ($cliente['id_uf'] == $linha['id_uf']) ? 'selected' : '' ?>>
+                <?= $linha['nome_uf'] ?>
+              </option>
+            <?php endforeach; ?>
+          </select>
+        </div>
+      </div>
+
+      <!-- Botões -->
+      <div class="mt-4">
+        <button type="submit" class="btn btn-success">Salvar</button>
+        <button type="button" class="btn btn-secondary">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
 </form>
+
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -109,11 +111,18 @@
 
         arquivo.addEventListener('change', function() {
             if (arquivo.files && arquivo.files[0]) {
-                let render = new FileReader();
-                render.onload = function(e) {
-                    visualizarImg.src = e.target.result;
+                let file = arquivo.files[0];
+
+                if (!file.type.startsWith("image/")) {
+                    alert("Por favor, selecione um arquivo de imagem válido!");
+                    return;
                 }
-                render.readAsDataURL(arquivo.files[0]);
+
+                let reader = new FileReader();
+                reader.onload = function(e) {
+                    visualizarImg.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
             }
         });
     });
