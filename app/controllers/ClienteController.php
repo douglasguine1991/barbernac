@@ -133,7 +133,7 @@ class ClienteController extends Controller
                     }
                 }
     
-                $this->clienteModel->updateCliente($id, $dadosCliente);
+                $this->clienteModel->atualizarCliente($id, $dadosCliente);
                 header('Location: ' . BASE_URL . 'cliente/listar'); // opcional: redirecionar após salvar
                 exit;
             }

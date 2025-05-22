@@ -1,4 +1,4 @@
-<form method="POST" action="<?= BASE_URL ?>servicos/adicionar" enctype="multipart/form-data">
+<form method="POST" action="<?= BASE_URL ?>servico/adicionar" enctype="multipart/form-data">
 
 <div class="container my-5">
 

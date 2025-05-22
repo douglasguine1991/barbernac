@@ -119,7 +119,7 @@ class ServicoController extends Controller
                     //Mensagem de sucesso
                     $_SESSION['mensagem'] = "Serviço Adicionado Com Sucesso!";
                     $_SESSION['tipo-msg'] = "Sucesso";
-                    header('location: https://agenciatipi02.smpsistema.com.br/visiontech/barbernac/public/servicos/listar');
+                    header('location: https://agenciatipi02.smpsistema.com.br/visiontech/barbernac/public/servico/listar');
                     exit;
                 } else {
                     $dados['mensagem'] = "Erro ao adicionar o Serviço";
@@ -190,7 +190,7 @@ class ServicoController extends Controller
 
                     $_SESSION['mensagem'] = "Serviço Atualizado Com Sucesso!";
                     $_SESSION['tipo-msg'] = "Sucesso";
-                    header('location: https://agenciatipi02.smpsistema.com.br/visiontech/barbernac/public/servicos/listar');
+                    header('location: https://agenciatipi02.smpsistema.com.br/visiontech/barbernac/public/servico/listar');
                     exit;
                 } else {
                     $dados['mensagem'] = "Erro ao atualizar o Serviço";
@@ -216,12 +216,30 @@ class ServicoController extends Controller
 
 
     // 4- Método para desativar o serviço
-    public function desativar()
+    public function desativar($id)
     {
-        $dados = array();
-        $dados['conteudo'] = 'dash/servico/desativar';
-        $this->carregarViews('dash/dashboard', $dados);
+        if (!isset($_SESSION['userTipo']) || $_SESSION['userTipo'] !== 'funcionario') {
+            header('Location:' . BASE_URL);
+            exit;
+        }
+
+        if ($id) {
+            $resultado = $this->servicoModel->desativarServico($id);
+
+            if ($resultado) {
+                $_SESSION['mensagem'] = "Servico desativado com sucesso!";
+                $_SESSION['tipo-msg'] = "Sucesso";
+            } else {
+                $_SESSION['mensagem'] = "Erro ao desativar cliente.";
+                $_SESSION['tipo-msg'] = "Erro";
+            }
+        }
+
+        header('Location: ' . BASE_URL . 'servico/listar');
+        exit;
     }
+
+
 
     // 5 metodo upload das fotos
     private function uploadFoto($file, $link_servico)

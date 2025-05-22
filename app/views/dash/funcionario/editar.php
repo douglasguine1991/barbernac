@@ -59,16 +59,25 @@
                     
                 </div>
 
-                <div class="row">
-                    <div class="col-md-6">
-                        <label for="id_uf" class="form-label">Estado:</label>
-                        <select class="form-select" id="id_uf" name="id_uf" required>
-                            <option value="0">Selecione</option>
-                            <?php foreach ($estados as $linha): ?>
-                                <option value="<?php echo $linha['id_uf']; ?>" <?php echo $funcionario['id_uf'] == $linha['id_uf'] ? 'selected' : ''; ?>><?php echo $linha['nome_uf']; ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
+    <!-- Estado -->
+        <div class="col-md-4">
+          <label for="id_uf" class="form-label">Estado:</label>
+          <select class="form-select" id="id_uf" name="id_uf" required>
+            <option value="">Selecione</option>
+            <?php foreach ($estados as $linha): ?>
+              <option value="<?= $linha['id_uf'] ?>" <?= ($funcionario['id_uf'] == $linha['id_uf']) ? 'selected' : '' ?>>
+                <?= $linha['nome_uf'] ?>
+              </option>
+            <?php endforeach; ?>
+          </select>
+        </div>
+      </div>
+
+      <?php foreach ($estados as $linha): ?>
+  <option value="<?= $linha['id_uf'] ?>" <?= ($funcionario['id_uf'] == $linha['id_uf']) ? 'selected' : '' ?>>
+    <?= $linha['nome_uf'] ?>
+  </option>
+<?php endforeach; ?>
                     <div class="col-md-6">
                         <label for="id_especialidade" class="form-label">Especialidade:</label>
                         <select class="form-select" id="id_especialidade" name="id" required>

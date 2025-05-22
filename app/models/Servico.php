@@ -254,4 +254,13 @@ INNER JOIN
         }
         return false;
     }
+
+    // Desativar Servico
+    public function desativarServico($id)
+    {
+        $sql = "UPDATE tbl_servico SET status_servico = 'Inativo' WHERE id = :id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        return $stmt->execute();
+    }
 }

@@ -163,7 +163,6 @@ class ApiController extends Controller
     {
         try {
  
-            
  
             $cliente = $this->autenticarToken(); 
            

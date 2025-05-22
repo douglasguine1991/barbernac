@@ -1,4 +1,4 @@
-<form method="POST" action="<?= BASE_URL ?>servicos/editar/<?php echo $servico['id_servico']; ?>" enctype="multipart/form-data">
+<form method="POST" action="<?= BASE_URL ?>servico/editar/<?php echo $servico['id_servico']; ?>" enctype="multipart/form-data">
 
 <div class="container my-5">
   <div class="row">

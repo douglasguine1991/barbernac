@@ -71,7 +71,7 @@ class Cliente extends Model
     }
 
 
-    public function updateCliente($id, $dados)
+    public function atualizarCliente($id, $dados)
     {
         $sql = "UPDATE clientes SET
         nome = :nome,
@@ -110,10 +110,6 @@ class Cliente extends Model
 
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
-
-
-
-
 
 
 
