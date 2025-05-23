@@ -58,17 +58,13 @@
             <?php foreach ($estados as $linha): ?>
               <option value="<?= $linha['id_uf'] ?>" <?= ($funcionario['id_uf'] == $linha['id_uf']) ? 'selected' : '' ?>>
                 <?= $linha['nome_uf'] ?>
-              </option>
+            </option>
             <?php endforeach; ?>
           </select>
         </div>
       </div>
 
-      <?php foreach ($estados as $linha): ?>
-  <option value="<?= $linha['id_uf'] ?>" <?= ($funcionario['id_uf'] == $linha['id_uf']) ? 'selected' : '' ?>>
-    <?= $linha['nome_uf'] ?>
-  </option>
-<?php endforeach; ?>
+    
                     <div class="col-md-6">
                         <label for="cargo" class="form-label">Cargo:</label>
                         <select class="form-select" id="cargo" name="cargo" required>

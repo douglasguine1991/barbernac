@@ -251,8 +251,10 @@ ol {
 }
 
 img {
-    max-width: 100%;
+    max-width: 70%;
     height: auto;
+    margin-top: -80px;
+    margin: -25px;
 }
 
 /* #endregion */
@@ -405,8 +407,9 @@ a.readmore_bt {
 header {
     min-height: 90px;
     background: #fff;
-    padding: 15px 0;
+    padding: 10px 0;
     width: 100%;
+    height: 150px;
     top: 0;
     left: 0;
     z-index: 998;
@@ -428,6 +431,7 @@ header .container-fluid {
     padding: 0;
     margin: 0;
     float: right;
+    margin-top: -50px;
 }
 
 .right_header_info ul li {
@@ -437,6 +441,7 @@ header .container-fluid {
     color: #eaeaea;
     font-weight: 400;
     float: left;
+    margin-top: 10px;
 }
 
 .right_header_info ul li a {
