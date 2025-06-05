@@ -14,6 +14,19 @@ class Cliente extends Model
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    public function buscarPorId($id) {
+        $sql = "SELECT * FROM clientes WHERE id = :id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(":id", $id);
+        $stmt->execute();
+    
+        if ($stmt->rowCount() > 0) {
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        }
+    
+        return null;
+    }
+
     // Contar a quantidade de clientes 
     public function getContarCliente()
     {
@@ -110,8 +123,6 @@ class Cliente extends Model
 
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
-
-
 
     public function desativarCliente($id)
     {

@@ -4,15 +4,13 @@ class ApiController extends Controller
 {
     private $servicoModel;
     private $clienteModel;
-    private $veiculoModel;
     private $agendamentoModel;
  
     public function __construct()
     {
         $this->servicoModel     = new Servico();
         $this->clienteModel     = new Cliente();
-        // $this->veiculoModel     = new Veiculo();
-        //$this->agendamentoModel = new Agendamento();
+        $this->agendamentoModel = new Agendamento();
     }
  
     public function index()
@@ -145,16 +143,19 @@ class ApiController extends Controller
      */
     public function listarServico()
     {
-        $servicos = $this->servicoModel->getTodosServicos();
  
         if (empty($servicos)) {
-            http_response_code(404);
+            http_response_code(403);
             echo json_encode(['mensagem' => 'Nenhum serviço encontrado.']);
             return;
         }
+
+        // Busca os dados completos do cliente no banco
+        $dados = $this->servicoModel->getTodosServicos();
  
         echo json_encode($servicos, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
     }
+
  
     /**
      * Retorna dados do cliente autenticado
@@ -255,52 +256,29 @@ class ApiController extends Controller
  
         return move_uploaded_file($file['tmp_name'], $dir . $arquivo) ? "cliente/{$arquivo}" : false;
     }
- 
-    /**
-     * Lista veículos do cliente
-     */
-    public function veiculo($id)
-    {
-        $cliente = $this->autenticarToken();
-        if (!$cliente || $cliente['id'] != $id) {
-            http_response_code(403);
-            echo json_encode(['erro' => 'Acesso negado.']);
-            return;
-        }
- 
-        $veiculo = $this->veiculoModel->getVeiculoIdCliente($id);
-        echo json_encode($veiculo ?: ['mensagem' => 'Nenhum veículo encontrado.'], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
-    }
- 
-    /**
-     * Lista serviços realizados
-     */
-    public function servicoExecutadoPorCliente($id)
-    {
-        $cliente = $this->autenticarToken();
-        if (!$cliente || $cliente['id'] != $id) {
-            http_response_code(403);
-            echo json_encode(['erro' => 'Acesso negado.']);
-            return;
-        }
- 
-        // $servicos = $this->clienteModel->servicoExecutadoPorIdCliente($id);
-        // echo json_encode($servicos ?: ['mensagem' => 'Nenhum serviço executado.'], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
-    }
- 
-    /**
-     * Lista agendamentos do cliente
-     */
+
     public function agendamentosPorCliente($id)
     {
         $cliente = $this->autenticarToken();
-        if (!$cliente || $cliente['id'] != $id) {
+        if (!$cliente || $cliente['id_cliente'] != $id) {
             http_response_code(403);
             echo json_encode(['erro' => 'Acesso negado.']);
             return;
         }
- 
-        // $agendamentos = $this->clienteModel->getAgendamentosPorCliente($id);
-        // echo json_encode($agendamentos ?: ['mensagem' => 'Nenhum agendamento encontrado.'], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+    
+}
+
+public function listarAgendamento()
+{
+    $agendamento = $this->agendamentoModel->getTodosAgendamentos();
+
+    if (empty($agendamento)) {
+        http_response_code(404);
+        echo json_encode(['mensagem' => 'Nenhum serviço encontrado.']);
+        return;
     }
+
+    echo json_encode($agendamento, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+}
+
 }
