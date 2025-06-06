@@ -15,10 +15,10 @@ define("DB_USER", "u283879542_barbernac");
 define("DB_PASS", "Senac@barbernac01");
 
 // Configuração do Email
-define('HOTS_EMAIL', 'smtp.hostinger.com');
+define('HOTS_EMAIL', 'smtp.gmail.com');
 define('PORT_EMAIL', '465');
-define('USER_EMAIL', 'innovaclicktipi02@smpsistema.com.br');
-define('PASS_EMAIL', 'Senac@tipi02');
+define('USER_EMAIL', 'douglassamuelg@gmail.com');
+define('PASS_EMAIL', 'lsqj zmce hdst kibv');
 
 
 // Sistema de autoload das class

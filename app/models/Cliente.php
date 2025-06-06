@@ -131,4 +131,44 @@ class Cliente extends Model
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
         return $stmt->execute();
     }
+
+
+    public function salvarTokenRecuperacao($id, $token, $expira)
+    {
+        $sql = "UPDATE clientes SET token_recuperacao = :token, token_expira = :expira WHERE id = :id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':token', $token);
+        $stmt->bindValue(':expira', $expira);
+        $stmt->bindValue(':id', $id);
+        return $stmt->execute();
+    }
+
+    public function getClientePorToken($token)
+    {
+        $sql = "SELECT * FROM clientes WHERE token_recuperacao = :token";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':token', $token);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function atualizarSenha($id, $novaSenha)
+    {
+        $sql = "UPDATE clientes SET senha = :novaSenha WHERE id = :id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':novaSenha', $novaSenha);
+        $stmt->bindValue(':id', $id);
+        return $stmt->execute();
+    }
+
+    public function limparTokenRecuperacao($id)
+    {
+        $sql = "UPDATE clientes SET token_recuperacao = NULL, token_expira = NULL WHERE id = :id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':id', $id);
+        return $stmt->execute();
+    }
+
+
+
 }
