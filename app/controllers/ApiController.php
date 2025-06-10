@@ -5,12 +5,15 @@ class ApiController extends Controller
     private $servicoModel;
     private $clienteModel;
     private $agendamentoModel;
+    private $perfilModel;
 
     public function __construct()
     {
         $this->servicoModel     = new Servico();
         $this->clienteModel     = new Cliente();
         $this->agendamentoModel = new Agendamento();
+        $this->perfilModel     = new Perfil();
+
     }
 
     public function index()
@@ -154,6 +157,23 @@ class ApiController extends Controller
         $dados = $this->servicoModel->getTodosServicos();
 
         echo json_encode($servicos, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+    }
+
+
+    /**
+     * Lista o Perfil
+     */
+    public function listarPerfil()
+    {
+        $perfil = $this->perfilModel->getPerfil();
+
+        if (empty($perfil)) {
+            http_response_code(404);
+            echo json_encode(['mensagem' => 'Nenhum serviço encontrado.']);
+            return;
+        }
+
+        echo json_encode($perfil, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
     }
 
 
@@ -340,7 +360,7 @@ class ApiController extends Controller
             $mail->isHTML(true);
             $mail->Subject = 'Recuperação de Senha';
 
-            $link = BASE_URL ."api/redefinirSenha?token=$token";
+            $link = BASE_URL . "api/redefinirSenha?token=$token";
             $mail->msgHTML("
             Olá {$cliente['nome']},<br><br>
             Recebemos uma solicitação para redefinir sua senha.<br>
