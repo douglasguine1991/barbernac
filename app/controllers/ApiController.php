@@ -13,7 +13,6 @@ class ApiController extends Controller
         $this->clienteModel     = new Cliente();
         $this->agendamentoModel = new Agendamento();
         $this->perfilModel     = new Perfil();
-
     }
 
     public function index()
@@ -146,15 +145,13 @@ class ApiController extends Controller
      */
     public function listarServico()
     {
+        $servicos = $this->servicoModel->getTodosServicos();
 
         if (empty($servicos)) {
-            http_response_code(403);
+            http_response_code(404);
             echo json_encode(['mensagem' => 'Nenhum serviço encontrado.']);
             return;
         }
-
-        // Busca os dados completos do cliente no banco
-        $dados = $this->servicoModel->getTodosServicos();
 
         echo json_encode($servicos, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
     }

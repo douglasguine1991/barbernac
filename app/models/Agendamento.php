@@ -6,7 +6,7 @@ class Agendamento extends Model
         $sql = "SELECT 
                     a.id,
                     c.nome AS nome_cliente,
-                    f.nome AS nome_funcionario,
+                    f.nome_funcionario AS nome_funcionario,
                     s.nome AS nome_servico,
                     h.horario,
                     a.status
@@ -48,7 +48,7 @@ class Agendamento extends Model
         $stmt->bindValue(':funcionario_id', $dados['funcionario_id'], PDO::PARAM_INT);
         $stmt->bindValue(':servico_id', $dados['servico_id'], PDO::PARAM_INT);
         $stmt->bindValue(':horario_id', $dados['horario_id'], PDO::PARAM_INT);
-        $stmt->bindValue(':status', $dados['status']);
+        $stmt->bindValue(':status', $dados['status'], PDO::PARAM_STR);
         $stmt->execute();
 
         return $this->db->lastInsertId();
@@ -64,7 +64,7 @@ class Agendamento extends Model
 
     public function getServicos()
     {
-        $sql = "SELECT * FROM servicos ORDER BY nome ASC";
+        $sql = "SELECT * FROM tbl_servico ORDER BY nome_servico ASC";
         $stmt = $this->db->query($sql);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -74,7 +74,7 @@ class Agendamento extends Model
         $sql = "SELECT 
                     a.id,
                     c.nome AS nome_cliente,
-                    f.nome AS nome_funcionario,
+                    f.nome_funcionario AS nome_funcionario,
                     s.nome AS nome_servico,
                     h.horario,
                     a.status
