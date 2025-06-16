@@ -67,7 +67,7 @@ class Cliente extends Model
     :telefone,
     :foto_cliente,
     :email,
-    :estado_id,
+    :id_uf,
     :senha
     
 )";
@@ -77,7 +77,7 @@ class Cliente extends Model
         $stmt->bindValue(':telefone', $dados['telefone']);
         $stmt->bindValue(':foto_cliente', $dados['foto_cliente']);
         $stmt->bindValue(':email', $dados['email']);
-        $stmt->bindValue(':estado_id', $dados['estado_id']);
+        $stmt->bindValue(':id_uf', $dados['id_uf']);
         $stmt->bindValue(':senha', $dados['senha']);
 
         $stmt->execute();
@@ -168,6 +168,26 @@ class Cliente extends Model
         $stmt->bindValue(':id', $id);
         return $stmt->execute();
     }
+
+    public function criarAgendamento($dados)
+{
+    $sql = "INSERT INTO agendamentos (cliente_id, funcionario_id, servico_id, horario_id, status)
+            VALUES (:cliente_id, :funcionario_id, :servico_id, :horario_id, :status)";
+    
+    $stmt = $this->db->prepare($sql);
+    
+    $stmt->bindValue(':cliente_id', $dados['cliente_id'], PDO::PARAM_INT);
+    $stmt->bindValue(':funcionario_id', $dados['funcionario_id'], PDO::PARAM_INT);
+    $stmt->bindValue(':servico_id', $dados['servico_id'], PDO::PARAM_INT);
+    $stmt->bindValue(':horario_id', $dados['horario_id'], PDO::PARAM_INT);
+    $stmt->bindValue(':status', $dados['status'], PDO::PARAM_STR);
+    
+    if ($stmt->execute()) {
+        return $this->db->lastInsertId(); // retorna o ID do agendamento criado
+    }
+    
+    return false; // falha na inserção
+}
 
 
 

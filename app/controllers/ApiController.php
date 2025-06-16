@@ -6,13 +6,18 @@ class ApiController extends Controller
     private $clienteModel;
     private $agendamentoModel;
     private $perfilModel;
+    private $funcModel;
+    private $estadoModel;
+
 
     public function __construct()
     {
         $this->servicoModel     = new Servico();
         $this->clienteModel     = new Cliente();
         $this->agendamentoModel = new Agendamento();
-        $this->perfilModel     = new Perfil();
+        $this->perfilModel      = new Perfil();
+        $this->funcModel        = new Funcionario();
+        $this->estadoModel      = new Estado();
     }
 
     public function index()
@@ -158,6 +163,23 @@ class ApiController extends Controller
 
 
     /**
+     * Lista todos os Funcionario
+     */
+    public function listarFunc()
+    {
+        $func = $this->funcModel->getListarFuncionarios();
+
+        if (empty($func)) {
+            http_response_code(404);
+            echo json_encode(['mensagem' => 'Nenhum funcionário encontrado.']);
+            return;
+        }
+
+        echo json_encode($func, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+    }
+
+
+    /**
      * Lista o Perfil
      */
     public function listarPerfil()
@@ -213,6 +235,25 @@ class ApiController extends Controller
             ], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
         }
     }
+
+
+    
+    /**
+     * Lista todos os serviços
+     */
+    public function listarEstados()
+    {
+        $estados = $this->estadoModel->getListarEstados();
+
+        if (empty($estados)) {
+            http_response_code(404);
+            echo json_encode(['mensagem' => 'Nenhum estado encontrado.']);
+            return;
+        }
+
+        echo json_encode($estados, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+    }
+
 
     /**
      * Atualiza os dados do cliente autenticado
@@ -276,7 +317,7 @@ class ApiController extends Controller
     public function agendamentosPorCliente($id)
     {
         $cliente = $this->autenticarToken();
-        if (!$cliente || $cliente['id_cliente'] != $id) {
+        if (!$cliente || $cliente['id'] != $id) {
             http_response_code(403);
             echo json_encode(['erro' => 'Acesso negado.']);
             return;
@@ -295,6 +336,46 @@ class ApiController extends Controller
 
         echo json_encode($agendamento, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
     }
+
+
+    public function criarAgendamento()
+    {
+        $cliente = $this->autenticarToken();
+        if (!$cliente) {
+            http_response_code(403);
+            echo json_encode(['erro' => 'Acesso negado.']);
+            return;
+        }
+
+        $dados = json_decode(file_get_contents("php://input"), true);
+
+        // Verifica se os dados obrigatórios existem (servico_id, funcionario_id, horario_id)
+        if (!isset($dados['servico_id'], $dados['funcionario_id'], $dados['horario_id'])) {
+            http_response_code(400);
+            echo json_encode(['erro' => 'Dados obrigatórios ausentes.']);
+            return;
+        }
+
+        // Monta dados para salvar no banco
+        $dadosAgendamento = [
+            'cliente_id'     => $cliente['id'], // id do cliente autenticado
+            'funcionario_id' => $dados['funcionario_id'],
+            'servico_id'     => $dados['servico_id'],
+            'horario_id'     => $dados['horario_id'],
+            'status'         => 'Agendado', // status inicial padrão
+        ];
+
+        // Chama o método do model para criar agendamento
+        $id = $this->clienteModel->criarAgendamento($dadosAgendamento);
+
+        if ($id) {
+            echo json_encode(['mensagem' => 'Agendamento criado com sucesso.', 'id' => $id], JSON_UNESCAPED_UNICODE);
+        } else {
+            http_response_code(500);
+            echo json_encode(['erro' => 'Erro ao criar agendamento.']);
+        }
+    }
+
 
 
 

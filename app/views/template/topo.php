@@ -33,14 +33,6 @@
                 <div class="col-md-9">
                     <div class="right_header_info">
                         <ul class="d-flex align-items-center justify-content-end">
-                            <li class="dinone">
-                                <img src="<?= BASE_URL ?>assets/img/phone_icon.png" alt="#" style="margin: 0 15px;">
-                                <a href="#">(11) 98765-4321</a>
-                            </li>
-                            <li class="dinone">
-                                <img src="<?= BASE_URL ?>assets/img/mail_icon.png" alt="#" style="margin-right: 15px;">
-                                <a href="#">contato@corteestilo.com</a>
-                            </li>
                             <li class="button_user">
                                 <a class="button" href="#" data-bs-toggle="modal" data-bs-target="#modalLogin">Login</a>
                             </li>

@@ -254,7 +254,7 @@ img {
     max-width: 70%;
     height: auto;
     margin-top: -80px;
-    margin: -25px;
+    margin: -10px;
 }
 
 /* #endregion */
@@ -431,7 +431,7 @@ header .container-fluid {
     padding: 0;
     margin: 0;
     float: right;
-    margin-top: -50px;
+    /* margin-top: -50px; */
 }
 
 .right_header_info ul li {
@@ -511,7 +511,7 @@ Estilo da Sidebar
     left: -280px;
     height: 100vh;
     z-index: 999;
-    background: #fff;
+    /* background: #fff; */
     color: #fff;
     transition: all 0.3s;
     overflow-y: scroll;
@@ -562,6 +562,7 @@ Estilo da Sidebar
     background: transparent;
     padding: 0;
     border: none;
+    margin-top: -20px;
 }
 
 #sidebar .sidebar-header {
@@ -583,6 +584,7 @@ Estilo da Sidebar
     font-size: 1.3em;
     display: block;
     font-weight: 300;
+    color: white;
 }
 
 #sidebar ul li a:hover {
