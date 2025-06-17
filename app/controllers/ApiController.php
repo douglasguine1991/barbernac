@@ -8,6 +8,7 @@ class ApiController extends Controller
     private $perfilModel;
     private $funcModel;
     private $estadoModel;
+    private $depoimentoModel;
 
 
     public function __construct()
@@ -18,6 +19,7 @@ class ApiController extends Controller
         $this->perfilModel      = new Perfil();
         $this->funcModel        = new Funcionario();
         $this->estadoModel      = new Estado();
+        $this->depoimentoModel  = new Depoimento();
     }
 
     public function index()
@@ -539,5 +541,53 @@ class ApiController extends Controller
             $dados['erro'] = 'Erro ao atualizar a senha';
             $this->carregarViews('home', $dados);
         }
+}
+
+public function NovoDepoimento()
+{
+    // Autenticação via token
+    $cliente = $this->autenticarToken();
+ 
+    // ID do cliente do token
+    if (!$cliente) {
+        http_response_code(401);
+        echo json_encode(['erro' => 'Token inválido ou ausente.']);
+        return;
     }
+ 
+    // ID do cliente via POST
+    $id = $cliente['id'];
+ 
+    // Coleta os demais dados do POST
+    $descricao = $_POST['descricao_depoimento'] ?? null;
+    $nota = $_POST['nota'] ?? null;
+ 
+    $data_depoimento = new DateTime('now', new DateTimeZone('America/Sao_Paulo'));
+    $data_depoimento = $data_depoimento->format('Y-m-d H:i:s');
+ 
+    $status = "Em análise";
+ 
+    // Validação simples (opcional, mas útil)
+    if (!$descricao || !$nota) {
+        http_response_code(400);
+        echo json_encode(['erro' => 'Descrição e nota são obrigatórias.']);
+        return;
+    }
+ 
+    // Monta array para o model
+    $dados = [
+        'cliente_id' => $id,
+        'comentario' => $descricao, // <- alterado aqui
+        'nota' => $nota,
+        'data_depoimento' => $data_depoimento,
+    ];
+    // Insere depoimento
+    $resultado = $this->depoimentoModel->addDepoimento($dados);
+ 
+    // Retorna resposta
+    header('Content-Type: application/json');
+    echo json_encode(['sucesso' => $resultado]);
+    exit;
+    }
+
 }
