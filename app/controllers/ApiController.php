@@ -316,6 +316,25 @@ class ApiController extends Controller
 
         return move_uploaded_file($file['tmp_name'], $dir . $arquivo) ? "cliente/{$arquivo}" : false;
     }
+
+     /**
+     * Lista serviços realizados
+     */
+    public function servicoExecutadoPorCliente($id)
+    {
+        $cliente = $this->autenticarToken();
+        if (!$cliente || $cliente['id'] != $id) {
+            http_response_code(403);
+            echo json_encode(['erro' => 'Acesso negado.']);
+            return;
+        }
+
+        $servicos = $this->clienteModel->servicoExecutadoPorIdCliente($id);
+        echo json_encode($servicos ?: ['mensagem' => 'Nenhum serviço executado.'], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+    }
+
+
+
     /**
      * Lista agendamentos do cliente
      */

@@ -4,27 +4,25 @@ class Agendamento extends Model
     public function getTodosAgendamentos()
     {
         $sql = "SELECT 
-                    a.id_agendamento AS id,
-                    c.nome AS nome_cliente,
-                    f.nome_funcionario,
-                    s.nome_servico,
-                    a.status_agendamento AS status,
-                    a.data_agendamento
-                FROM 
-                    tbl_agendamento a
-                JOIN 
-                    clientes c ON a.id_cliente = c.id
-                JOIN 
-                    funcionarios f ON a.id_funcionario = f.id
-                JOIN 
-                    tbl_servico s ON a.id_servico = s.id_servico
-                WHERE 
-                    a.status_agendamento = 'Agendado'
-                ORDER BY a.data_agendamento ASC";
+                a.id_agendamento AS id,
+                f.nome_funcionario,
+                s.nome_servico,
+                a.status_agendamento AS status,
+                a.data_agendamento
+            FROM 
+                tbl_agendamento a
+            JOIN 
+                funcionarios f ON a.id_funcionario = f.id
+            JOIN 
+                tbl_servico s ON a.id_servico = s.id_servico
+            WHERE 
+                a.status_agendamento = 'Agendado'
+            ORDER BY a.data_agendamento ASC";
 
         $stmt = $this->db->query($sql);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
 
     public function addAgendamento($dados)
     {

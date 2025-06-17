@@ -38,28 +38,30 @@ class Cliente extends Model
     }
 
 
-    // Agendamentos Por Cliente
-    public function getAgendamentosPorCliente($cliente_id)
+    /**
+     * 
+     * AGENDAMENTO
+     */
+    public function getAgendamentosPorCliente($id_cliente)
     {
         $sql = "SELECT 
-                a.id AS id_agendamento,
+                a.data_agendamento,
                 a.status_agendamento,
-                f.nome_funcionario,
-                s.nome_servico
-            FROM 
-                tbl_agendamento a
-            JOIN 
-                funcionarios f ON a.id = f.id
-            JOIN 
-                tbl_servico s ON a.id_servico = s.id_servico
-            WHERE 
-                a.id = :id
-            ORDER BY a.id ASC";  // 
+                v.ano_veiculo,
+                v.combustivel_veiculo,
+                v.chassi_veiculo,
+                v.cor_veiculo,
+                v.km_veiculo,
+                f.nome_funcionario
+            FROM tbl_agendamento a
+            JOIN tbl_servico v ON a.id_servico = v.id_servico
+            LEFT JOIN funcionarios f ON a.id = f.id
+            WHERE v.id = :id
+            ORDER BY a.data_agendamento DESC";
 
         $stmt = $this->db->prepare($sql);
-        $stmt->bindValue(':id', $cliente_id, PDO::PARAM_INT);
+        $stmt->bindValue(':id', $id_cliente, PDO::PARAM_INT);
         $stmt->execute();
-
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
@@ -135,6 +137,32 @@ class Cliente extends Model
         $stmt->execute();
     }
 
+    public function servicoExecutadoPorIdCliente($id_cliente)
+    {
+        $sql = "SELECT 
+                    c.id,
+                    c.nome,
+                    a.data_agendamento,
+                    a.status_agendamento,
+                    s.nome_servico,
+                    s.descricao_servico,
+                    s.preco_base_servico,
+                    f.nome_funcionario,
+                    f.cargo
+                FROM clientes c
+                INNER JOIN tbl_agendamento a ON c.id = a.id_cliente
+                INNER JOIN tbl_servico s ON a.id_servico = s.id_servico
+                LEFT JOIN funcionarios f ON a.id_funcionario = f.id
+                WHERE c.id = :id_cliente
+                ORDER BY a.data_agendamento DESC";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':id_cliente', (int)$id_cliente, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
 
     // Método para buscar os dados de Cliente de acordo com o ID
     public function getClienteById($id)
@@ -199,21 +227,26 @@ class Cliente extends Model
 
     public function criarAgendamento($dados)
     {
-        $sql = "INSERT INTO agendamentos (cliente_id, funcionario_id, servico_id, horario_id, status)
-            VALUES (:cliente_id, :funcionario_id, :servico_id, :horario_id, :status)";
-
+        $sql = "INSERT INTO tbl_agendamento (id_servico, id_funcionario, data_agendamento, status_agendamento) 
+            VALUES (:id_servico, :id_funcionario, :data_agendamento, :status_agendamento)";
         $stmt = $this->db->prepare($sql);
+        $stmt->execute($dados);
+        return $this->db->lastInsertId();
+    }
 
-        $stmt->bindValue(':cliente_id', $dados['cliente_id'], PDO::PARAM_INT);
-        $stmt->bindValue(':funcionario_id', $dados['funcionario_id'], PDO::PARAM_INT);
-        $stmt->bindValue(':servico_id', $dados['servico_id'], PDO::PARAM_INT);
-        $stmt->bindValue(':horario_id', $dados['horario_id'], PDO::PARAM_INT);
-        $stmt->bindValue(':status', $dados['status'], PDO::PARAM_STR);
-
-        if ($stmt->execute()) {
-            return $this->db->lastInsertId(); // retorna o ID do agendamento criado
-        }
-
-        return false; // falha na inserção
+    public function buscarAgendamentoDoCliente($idAgendamento, $idCliente)
+    {
+        $sql = "
+            SELECT a.*
+            FROM tbl_agendamento a
+            WHERE a.id_agendamento = :id_agendamento
+              AND a.id_cliente = :id_cliente
+        ";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([
+            ':id_agendamento' => $idAgendamento,
+            ':id_cliente' => $idCliente
+        ]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 }
