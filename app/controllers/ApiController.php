@@ -145,21 +145,24 @@ class ApiController extends Controller
         ], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
     }
 
+
+
     /**
-     * Lista todos os serviços
+     * Lista todos os Serviços
      */
     public function listarServico()
     {
-        $servicos = $this->servicoModel->getTodosServicos();
+        $servico = $this->servicoModel->getTodosServicos();
 
-        if (empty($servicos)) {
+        if (empty($servico)) {
             http_response_code(404);
             echo json_encode(['mensagem' => 'Nenhum serviço encontrado.']);
             return;
         }
 
-        echo json_encode($servicos, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+        echo json_encode($servico, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
     }
+
 
 
     /**
@@ -237,7 +240,7 @@ class ApiController extends Controller
     }
 
 
-    
+
     /**
      * Lista todos os serviços
      */
@@ -313,7 +316,9 @@ class ApiController extends Controller
 
         return move_uploaded_file($file['tmp_name'], $dir . $arquivo) ? "cliente/{$arquivo}" : false;
     }
-
+    /**
+     * Lista agendamentos do cliente
+     */
     public function agendamentosPorCliente($id)
     {
         $cliente = $this->autenticarToken();
@@ -321,6 +326,14 @@ class ApiController extends Controller
             http_response_code(403);
             echo json_encode(['erro' => 'Acesso negado.']);
             return;
+        }
+
+        $agendamentos = $this->clienteModel->getAgendamentosPorCliente($id);
+
+        if (empty($agendamentos)) {
+            echo json_encode(['mensagem' => 'Nenhum agendamento encontrado.'], JSON_UNESCAPED_UNICODE);
+        } else {
+            echo json_encode($agendamentos, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
         }
     }
 
@@ -337,7 +350,26 @@ class ApiController extends Controller
         echo json_encode($agendamento, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
     }
 
+    public function listarAgendamentoServicos()
+    {
+        $servico = $this->servicoModel->getTodosAgendamentosServico();
 
+        if (empty($servico)) {
+            http_response_code(404);
+            echo json_encode(['mensagem' => 'Nenhum serviço encontrado.']);
+            return;
+        }
+
+        echo json_encode($servico, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+    }
+
+
+
+
+
+    /**
+     * Criar agendamentos do cliente autenticado
+     */
     public function criarAgendamento()
     {
         $cliente = $this->autenticarToken();
@@ -349,31 +381,17 @@ class ApiController extends Controller
 
         $dados = json_decode(file_get_contents("php://input"), true);
 
-        // Verifica se os dados obrigatórios existem (servico_id, funcionario_id, horario_id)
-        if (!isset($dados['servico_id'], $dados['funcionario_id'], $dados['horario_id'])) {
+        if (!isset($dados['id_servico'], $dados['id'], $dados['data_agendamento'])) {
             http_response_code(400);
             echo json_encode(['erro' => 'Dados obrigatórios ausentes.']);
             return;
         }
 
-        // Monta dados para salvar no banco
-        $dadosAgendamento = [
-            'cliente_id'     => $cliente['id'], // id do cliente autenticado
-            'funcionario_id' => $dados['funcionario_id'],
-            'servico_id'     => $dados['servico_id'],
-            'horario_id'     => $dados['horario_id'],
-            'status'         => 'Agendado', // status inicial padrão
-        ];
 
-        // Chama o método do model para criar agendamento
-        $id = $this->clienteModel->criarAgendamento($dadosAgendamento);
+        $dados['status_agendamento'] = 'Em análise';
 
-        if ($id) {
-            echo json_encode(['mensagem' => 'Agendamento criado com sucesso.', 'id' => $id], JSON_UNESCAPED_UNICODE);
-        } else {
-            http_response_code(500);
-            echo json_encode(['erro' => 'Erro ao criar agendamento.']);
-        }
+        $id = $this->clienteModel->criarAgendamento($dados);
+        echo json_encode(['mensagem' => 'Agendamento criado com sucesso.', 'id' => $id], JSON_UNESCAPED_UNICODE);
     }
 
 

@@ -24,6 +24,26 @@ class Servico extends Model
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function getTodosAgendamentosServico()
+    {
+        $sql = "SELECT 
+                    id_servico, 
+                    nome_servico, 
+                    descricao_servico, 
+                    preco_base_servico, 
+                    status_servico 
+                FROM tbl_servico 
+                ORDER BY nome_servico ASC";
+
+        $stmt = $this->db->query($sql);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
+
+
+
+
     //Método Listar Todos os Serviços ativos Com Foto
     public function getTodosServicosComFoto()
     {

@@ -14,16 +14,17 @@ class Cliente extends Model
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function buscarPorId($id) {
+    public function buscarPorId($id)
+    {
         $sql = "SELECT * FROM clientes WHERE id = :id";
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(":id", $id);
         $stmt->execute();
-    
+
         if ($stmt->rowCount() > 0) {
             return $stmt->fetch(PDO::FETCH_ASSOC);
         }
-    
+
         return null;
     }
 
@@ -35,6 +36,33 @@ class Cliente extends Model
         $stmt = $this->db->query($sql);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
+
+    // Agendamentos Por Cliente
+    public function getAgendamentosPorCliente($cliente_id)
+    {
+        $sql = "SELECT 
+                a.id AS id_agendamento,
+                a.status_agendamento,
+                f.nome_funcionario,
+                s.nome_servico
+            FROM 
+                tbl_agendamento a
+            JOIN 
+                funcionarios f ON a.id = f.id
+            JOIN 
+                tbl_servico s ON a.id_servico = s.id_servico
+            WHERE 
+                a.id = :id
+            ORDER BY a.id ASC";  // 
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':id', $cliente_id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 
 
     public function getidCliente()
@@ -170,25 +198,22 @@ class Cliente extends Model
     }
 
     public function criarAgendamento($dados)
-{
-    $sql = "INSERT INTO agendamentos (cliente_id, funcionario_id, servico_id, horario_id, status)
+    {
+        $sql = "INSERT INTO agendamentos (cliente_id, funcionario_id, servico_id, horario_id, status)
             VALUES (:cliente_id, :funcionario_id, :servico_id, :horario_id, :status)";
-    
-    $stmt = $this->db->prepare($sql);
-    
-    $stmt->bindValue(':cliente_id', $dados['cliente_id'], PDO::PARAM_INT);
-    $stmt->bindValue(':funcionario_id', $dados['funcionario_id'], PDO::PARAM_INT);
-    $stmt->bindValue(':servico_id', $dados['servico_id'], PDO::PARAM_INT);
-    $stmt->bindValue(':horario_id', $dados['horario_id'], PDO::PARAM_INT);
-    $stmt->bindValue(':status', $dados['status'], PDO::PARAM_STR);
-    
-    if ($stmt->execute()) {
-        return $this->db->lastInsertId(); // retorna o ID do agendamento criado
+
+        $stmt = $this->db->prepare($sql);
+
+        $stmt->bindValue(':cliente_id', $dados['cliente_id'], PDO::PARAM_INT);
+        $stmt->bindValue(':funcionario_id', $dados['funcionario_id'], PDO::PARAM_INT);
+        $stmt->bindValue(':servico_id', $dados['servico_id'], PDO::PARAM_INT);
+        $stmt->bindValue(':horario_id', $dados['horario_id'], PDO::PARAM_INT);
+        $stmt->bindValue(':status', $dados['status'], PDO::PARAM_STR);
+
+        if ($stmt->execute()) {
+            return $this->db->lastInsertId(); // retorna o ID do agendamento criado
+        }
+
+        return false; // falha na inserção
     }
-    
-    return false; // falha na inserção
-}
-
-
-
 }
