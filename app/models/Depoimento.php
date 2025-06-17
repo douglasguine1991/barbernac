@@ -32,30 +32,30 @@ class Depoimento extends Model
 
     // Adiciona um novo depoimento
     public function addDepoimento($dados)
-    {
-        $sql = "INSERT INTO depoimento (
-            cliente_id,
-            comentario,
-            nota,
-            data_depoimento
-        ) VALUES (
-            :cliente_id,
-            :comentario,
-            :nota,
-            :data_depoimento
-        )";
+{
+    $sql = "INSERT INTO depoimento (
+        cliente_id,
+        comentario,
+        nota,
+        data_depoimento
+    ) VALUES (
+        :cliente_id,
+        :comentario,
+        :nota,
+        :data_depoimento
+    )";
+    
 
-        $stmt = $this->db->prepare($sql);
-        $stmt->bindValue(':cliente_id', $dados['cliente_id'], PDO::PARAM_INT);
-        $stmt->bindValue(':comentario', $dados['comentario'], PDO::PARAM_STR);
-        $stmt->bindValue(':nota', $dados['nota'], PDO::PARAM_INT);
+    $stmt = $this->db->prepare($sql);
+    $stmt->bindValue(':cliente_id', $dados['id'], PDO::PARAM_INT); // <-- cliente_id, não id
+    $stmt->bindValue(':comentario', $dados['comentario'], PDO::PARAM_STR);
+    $stmt->bindValue(':nota', $dados['nota'], PDO::PARAM_INT);
+    $stmt->bindValue(':data_depoimento', $dados['data_depoimento']);
+    
 
-        // Se não for passado, insere a data atual
-        $data = $dados['data_depoimento'] ?? date('Y-m-d H:i:s');
-        $stmt->bindValue(':data_depoimento', $data);
+    return $stmt->execute();
+}
 
-        $stmt->execute();
-    }
 }
 
 
