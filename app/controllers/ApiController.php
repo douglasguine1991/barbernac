@@ -415,6 +415,38 @@ class ApiController extends Controller
         echo json_encode(['mensagem' => 'Agendamento criado com sucesso.', 'id' => $id], JSON_UNESCAPED_UNICODE);
     }
 
+    /**
+     * Cancelar agendamento do cliente autenticado
+     */
+    public function cancelarAgendamento($idAgendamento)
+    {
+        $cliente = $this->autenticarToken();
+        if (!$cliente) {
+            http_response_code(403);
+            echo json_encode(['erro' => 'Acesso negado.']);
+            return;
+        }
+
+        // Buscar agendamento e validar se é do cliente
+        $agendamento = $this->clienteModel->buscarAgendamentoDoCliente($idAgendamento, $cliente['id']);
+
+        if (!$agendamento) {
+            http_response_code(404);
+            echo json_encode(['erro' => 'Agendamento não encontrado ou não pertence ao cliente.']);
+            return;
+        }
+
+        // Atualizar status para Cancelado
+        $sucesso = $this->clienteModel->cancelarAgendamento($idAgendamento);
+
+        if ($sucesso) {
+            echo json_encode(['mensagem' => 'Agendamento cancelado com sucesso.'], JSON_UNESCAPED_UNICODE);
+        } else {
+            http_response_code(500);
+            echo json_encode(['erro' => 'Erro ao cancelar agendamento.']);
+        }
+    }
+
 
 
 

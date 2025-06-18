@@ -114,28 +114,62 @@ class Cliente extends Model
     }
 
 
+   
+    /** Atualizar cliente */
     public function atualizarCliente($id, $dados)
     {
-        $sql = "UPDATE clientes SET
-        nome = :nome,
-        telefone = :telefone,
-        foto_cliente = :foto_cliente,
-        email = :email,
-        id_uf = :id_uf,
-        senha = :senha
-        WHERE id = :id";
+        // Constrói a query dinamicamente para atualizar apenas os campos enviados
+        $sql = "UPDATE clientes SET ";
+        $valores = []; // Guardará os campos a serem atualizados
+        $parametros = []; // Guardará os valores a serem inseridos na query preparada.
+
+        foreach ($dados as $campo => $valor) {
+            // Garante que apenas colunas válidas sejam atualizadas
+            if (!empty($valor) && in_array($campo, [
+                'nome',
+                'tipo_cliente',
+                'cpf_cnpj_cliente',
+                'data_nasc_cliente',
+                'email',
+                'senha',
+                'foto_cliente',
+                'telefone',
+                'id_uf',
+                'status_cliente'
+            ])) {
+                $valores[] = "$campo = :$campo";
+                $parametros[":$campo"] = $valor;
+            }
+        }
+
+        // Se não houver nada para atualizar, retorna falso
+        if (empty($valores)) {
+            return false;
+        }
+
+        $sql .= implode(', ', $valores);
+        $sql .= " WHERE id = :id";
+        $parametros[":id"] = $id;
+
+        /*
+        Exemplo do resultado final da query gerada dinamicament
+        UPDATE tbl_cliente SET nome_cliente = :nome_cliente, telefone_cliente = :telefone_cliente WHERE id_cliente = :id_cliente
+        */
+
         $stmt = $this->db->prepare($sql);
+        return $stmt->execute($parametros);
+    }
 
-        $stmt->bindValue(':nome', $dados['nome']);
-        $stmt->bindValue(':telefone', $dados['telefone']);
-        $stmt->bindValue(':foto_cliente', $dados['foto_cliente']);
-        $stmt->bindValue(':email', $dados['email']);
-        $stmt->bindValue(':id_uf', $dados['id_uf']);
-        $stmt->bindValue(':senha', $dados['senha']);
-        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
 
+    public function atualizarFotoCliente($id, $foto)
+    {
+        $sql = "UPDATE clientes SET foto_cliente = :foto_cliente WHERE id = :id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':foto_cliente', $foto);
+        $stmt->bindValue(':id', $id);
         $stmt->execute();
     }
+
 
     public function servicoExecutadoPorIdCliente($id_cliente)
     {
